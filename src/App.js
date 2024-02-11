@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-// import './App.css';
-
+import Home from './Page/Home';
 function App() {
   return (
     <div className="App">
-      hello
-      <p>I am from kolkta</p>
+      <Home/>
     </div>
   );
 }
