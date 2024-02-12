@@ -1,36 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Logo } from "../../constant";
 import { FaHome } from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
-import { hover } from "@testing-library/user-event/dist/hover";
 const Navbar = () => {
+  const[isShow,setIsShow]=useState({
+    "display":false,
+    "text":"Sign in"
+  })
+  const handleLoginBtn=()=>{
+    setIsShow(prevState => ({
+      ...prevState,
+      "display": !prevState.display,
+      "text":prevState?.display?"Sign in":"Sign out"
+    }));
+    console.log(isShow)
+
+  }
   return (
     <Container>
       <NavBar>
         <LogoContainer>
           {Logo} <LogoName>FoodX</LogoName>
-        </LogoContainer>
+          </LogoContainer>
         <Licon>
           <List>
-            <Liitem>
+            <NavLinks>
               <FaHome />
-              Home
-            </Liitem>
-            <Liitem>
+              <p>Home</p>
+              
+            </NavLinks>
+            <NavLinks>
               <BiSolidOffer />
-              Offers
-            </Liitem>
-            <Liitem>
-              <FaSignInAlt />
-              Sign in
-            </Liitem>
-            <Liitem>
+              <p>Offers</p>
+            </NavLinks>
+            <NavLinks onClick={handleLoginBtn}>
+              {
+                !isShow?.display?(<FaSignInAlt />):(<FaSignOutAlt/>)
+              }
+              
+              <p>{isShow?.text}</p>
+            </NavLinks>
+            <NavLinks>
               <FaCartPlus />
-              Cart
-            </Liitem>
+              <p>Cart</p>
+              
+            </NavLinks>
           </List>
         </Licon>
       </NavBar>
@@ -40,6 +57,8 @@ const Navbar = () => {
 const Container = styled.div`
   margin-top: -7px;
   width: 100%;
+  position:fixed;
+  top:0;
   background-color: aliceblue;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
 `;
@@ -68,21 +87,26 @@ const Licon = styled.div`
 const List = styled.ul`
   list-style: none;
   display: flex;
-
+  justify-content: space-between;
   @media screen and (max-width: 640px) {
     width: auto;
     background-color: cyan;
   }
 `;
-const Liitem = styled.li`
+const NavLinks = styled.li`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  padding-left: 2px;
+  color:#3d4152;
+  font-size: 16px;
+  font-weight:500;
+  cursor: pointer;
   :hover {
-    color: red;
+    color:#ffa700;
   }
   @media screen and (max-width: 640px) {
-    gap: 10px;
+    gap: 1px;
   }
 `;
 
