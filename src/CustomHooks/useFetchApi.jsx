@@ -14,6 +14,6 @@ const useFetchApi=(foodApi)=>{
             
         }
 MoodData()
-    },[dispatch,foodApi])
+    },[])
 }
 export default useFetchApi;

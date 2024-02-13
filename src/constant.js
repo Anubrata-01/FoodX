@@ -2,3 +2,5 @@ export const Logo=<svg class="_8pSp-" viewBox="0 0 559 825" height="49" width="3
 export const foodApi="https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
 export const color= "#ffa700";
 export const CDN_url="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_558,h_320,c_fill/";
+export const Swigy_url="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/";
+// https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/
