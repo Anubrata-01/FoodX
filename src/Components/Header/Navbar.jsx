@@ -56,15 +56,15 @@ const Navbar = () => {
 };
 const Container = styled.div`
   margin-top: -7px;
-  width: 100%;
+  width:1200px;
   position:fixed;
   top:0;
-  background-color: aliceblue;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  box-shadow:0 15px 40px -20px rgba(40,44,63,.15);;
 `;
 const NavBar = styled.nav`
   width: 80%;
-  margin-left: 13%;
+  margin-left: 8%;
   border: "1px solid black";
   display: flex;
   justify-content: space-between;
