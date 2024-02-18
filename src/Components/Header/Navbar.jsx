@@ -5,6 +5,7 @@ import { FaHome } from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const[isShow,setIsShow]=useState({
     "display":false,
@@ -28,8 +29,12 @@ const Navbar = () => {
         <Licon>
           <List>
             <NavLinks>
-              <FaHome />
+            <FaHome />
+              <NavLink to={"/home"}>
+              
               <p>Home</p>
+              </NavLink>
+             
               
             </NavLinks>
             <NavLinks>

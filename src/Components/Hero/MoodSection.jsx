@@ -1,15 +1,17 @@
 import React from 'react';
 import useFetchApi from '../../CustomHooks/useFetchApi';
 import {  Swigy_url, foodApi } from '../../constant';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import styled from 'styled-components';
+import LineBar from '../../Utilities/LineBar';
+
 
 const MoodSection = () => {
-  
   useFetchApi(foodApi);
-  const moodToday = useSelector(store => store?.restaurant?.moodToday);
-  const headerTitle = React.useMemo(() => moodToday?.[0]?.card?.card?.header?.title || '', [moodToday]);
-  const info= React.useMemo(() => moodToday?.[0]?.card?.card?.gridElements?.infoWithStyle?.info || '', [moodToday]);
+  const Data = useSelector(store => store?.restaurant?.restaurantAPi);
+  const filterData=Data?.data?.cards?.filter((item)=>item?.card?.card?.header?.title ==="What's on your mind?");
+  const headerTitle = React.useMemo(() => filterData?.[0]?.card?.card?.header?.title || '', [filterData]);
+  const info= React.useMemo(() => filterData?.[0]?.card?.card?.gridElements?.infoWithStyle?.info || '', [filterData]);
   console.log(headerTitle)
   if(!info) {
     return null
@@ -30,6 +32,7 @@ const MoodSection = () => {
         }
         
       </ItemCon>
+      <LineBar/>
     </Container>
   );
 }

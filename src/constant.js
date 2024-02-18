@@ -4,3 +4,4 @@ export const color= "#ffa700";
 export const CDN_url="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_558,h_320,c_fill/";
 export const Swigy_url="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/";
 // https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/
+// export const C_url="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_558,h_320,c_fill/";
