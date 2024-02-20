@@ -5,12 +5,13 @@ import { FaHome } from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink,} from "react-router-dom";
 const Navbar = () => {
   const[isShow,setIsShow]=useState({
     "display":false,
     "text":"Sign in"
   })
+
   const handleLoginBtn=()=>{
     setIsShow(prevState => ({
       ...prevState,
@@ -20,6 +21,7 @@ const Navbar = () => {
     console.log(isShow)
 
   }
+
   return (
     <Container>
       <NavBar>
@@ -28,30 +30,27 @@ const Navbar = () => {
           </LogoContainer>
         <Licon>
           <List>
-            <NavLinks>
+            <NavLinks >
             <FaHome />
-              <NavLink to={"/home"}>
-              
-              <p>Home</p>
-              </NavLink>
-             
+            <StyledNavLink to={"/home"}>Home</StyledNavLink>
               
             </NavLinks>
             <NavLinks>
               <BiSolidOffer />
-              <p>Offers</p>
+              <StyledNavLink to={""}>Offers</StyledNavLink>
+
+            </NavLinks>
+            <NavLinks>
+              <FaCartPlus />
+              <StyledNavLink to={""}>Cart</StyledNavLink>
             </NavLinks>
             <NavLinks onClick={handleLoginBtn}>
               {
                 !isShow?.display?(<FaSignInAlt />):(<FaSignOutAlt/>)
               }
               
-              <p>{isShow?.text}</p>
-            </NavLinks>
-            <NavLinks>
-              <FaCartPlus />
-              <p>Cart</p>
-              
+              <StyledNavLink to={""}>{isShow?.text}</StyledNavLink>
+
             </NavLinks>
           </List>
         </Licon>
@@ -63,6 +62,7 @@ const Container = styled.div`
   margin-top: -7px;
   width:1200px;
   position:fixed;
+  z-index: 999;
   top:0;
   background-color: #fff;
   box-shadow:0 15px 40px -20px rgba(40,44,63,.15);;
@@ -113,6 +113,12 @@ const NavLinks = styled.li`
   @media screen and (max-width: 640px) {
     gap: 1px;
   }
+`;
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  align-items: center;
+  line-height: 35px;
+  color: black;
 `;
 
 export default Navbar;

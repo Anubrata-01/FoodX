@@ -1,24 +1,37 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import RestaurantCard from './RestaurantCard';
-import { useSelector } from 'react-redux';
-import { FcLeft,FcRight } from "react-icons/fc";
-import LineBar from '../../Utilities/LineBar';
+import React, { useRef } from "react";
+import styled from "styled-components";
+import RestaurantCard from "./RestaurantCard";
+import { useSelector } from "react-redux";
+import { FcLeft, FcRight } from "react-icons/fc";
+import LineBar from "../../Utilities/LineBar";
 
 const TopRestaurant = () => {
-  const TopRestaurant = useSelector(store => store?.restaurant?.restaurantAPi);
-  const filterdTopResData = TopRestaurant?.data?.cards?.filter((item) => item?.card?.card?.header?.title === "Top restaurant chains in Kolkata");
-  const headerTitle = React.useMemo(() => filterdTopResData?.[0]?.card?.card?.header?.title || '', [filterdTopResData]);
-  const resCardInfo = React.useMemo(() => filterdTopResData?.[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants || '', [filterdTopResData]);
+  const TopRestaurant = useSelector(
+    (store) => store?.restaurant?.restaurantAPi
+  );
+  const filterdTopResData = TopRestaurant?.data?.cards?.filter(
+    (item) =>
+      item?.card?.card?.header?.title === "Top restaurant chains in Kolkata"
+  );
+  const headerTitle = React.useMemo(
+    () => filterdTopResData?.[0]?.card?.card?.header?.title || "",
+    [filterdTopResData]
+  );
+  const resCardInfo = React.useMemo(
+    () =>
+      filterdTopResData?.[0]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants || "",
+    [filterdTopResData]
+  );
 
   const resCardContainerRef = useRef(null);
 
   const handleScrollLeft = () => {
     if (resCardContainerRef.current) {
-      resCardContainerRef.current.scrollLeft -= 360; 
+      resCardContainerRef.current.scrollLeft -= 360;
       resCardContainerRef.current.scrollTo({
-        behavior: 'smooth',
-      })
+        behavior: "smooth",
+      });
     }
   };
 
@@ -36,8 +49,12 @@ const TopRestaurant = () => {
     <Container>
       <Title>{headerTitle}</Title>
       <ScrollButtons>
-        <ScrollButton onClick={handleScrollLeft}><FcLeft/></ScrollButton>
-        <ScrollButton onClick={handleScrollRight}><FcRight/></ScrollButton>
+        <ScrollButton onClick={handleScrollLeft}>
+          <FcLeft />
+        </ScrollButton>
+        <ScrollButton onClick={handleScrollRight}>
+          <FcRight />
+        </ScrollButton>
       </ScrollButtons>
       <ResCardContainer ref={resCardContainerRef}>
         <ResCon>
@@ -55,7 +72,8 @@ const Container = styled.div`
   width: 80%;
   margin-left: 10%;
   margin-top: 2%;
-  position: relative; 
+  position: relative;
+  /* z-index: -1; */
 `;
 
 const Title = styled.h1`
@@ -72,12 +90,13 @@ const ResCardContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  
 `;
 
 const ResCon = styled.div`
   display: flex;
   gap: 8px;
+  /* overflow-x: scroll; */
+
   justify-content: space-between;
   transition: transform 0.3s ease-in-out;
 `;
@@ -85,7 +104,7 @@ const ResCon = styled.div`
 const ScrollButtons = styled.div`
   position: absolute;
   top: 7%;
-  left:87%;
+  left: 87%;
   transform: translateY(-50%);
   display: flex;
 `;
