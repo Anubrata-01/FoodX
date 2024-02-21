@@ -5,8 +5,7 @@ import styled from "styled-components";
 const RestaurantCard = ({ item }) => {
   const { name, avgRating, areaName, cloudinaryImageId, cuisines } = item?.info || {};
   const { deliveryTime } = item?.info?.sla || {};
-  const filterdCuisine = cuisines?.slice(0, 2) || [];
-
+  const filterdCuisine =React.useMemo(()=>cuisines?.slice(0, 2) || [],[cuisines]) ;
   return (
     <Container>
       <div>

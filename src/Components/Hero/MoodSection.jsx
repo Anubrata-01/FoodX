@@ -4,6 +4,7 @@ import {  Swigy_url, foodApi } from '../../constant';
 import {  useSelector } from 'react-redux';
 import styled from 'styled-components';
 import LineBar from '../../Utilities/LineBar';
+import { NavLink } from 'react-router-dom';
 
 
 const MoodSection = () => {
@@ -12,23 +13,29 @@ const MoodSection = () => {
   const filterData=Data?.data?.cards?.filter((item)=>item?.card?.card?.header?.title ==="What's on your mind?");
   const headerTitle = React.useMemo(() => filterData?.[0]?.card?.card?.header?.title || '', [filterData]);
   const info= React.useMemo(() => filterData?.[0]?.card?.card?.gridElements?.infoWithStyle?.info || '', [filterData]);
-  console.log(headerTitle)
   if(!info) {
     return null
   }
-  console.log(info)
-
 
   return (
     <Container>
       <Title>{headerTitle}</Title>
       <ItemCon>
         {
-          info?.map((item,index)=>(
-            <Item key={index}>
-          <Img src={Swigy_url+item?.imageId} alt={item?.name} />
-        </Item>
-          ))
+         info?.map((item, index) => {
+          let entityId = item.entityId; 
+          if (typeof entityId === 'string' && entityId.startsWith('swiggy://collectionV2')) {
+            const collectionId = entityId.match(/collection_id=(\d+)/);
+            entityId = collectionId ? collectionId[1] : entityId; 
+          }
+          return (
+            <NavLink to={"/mood/"+entityId} key={index}>
+              <Item>
+                <Img src={Swigy_url + item?.imageId} alt={item?.name} />
+              </Item>
+            </NavLink>
+          );
+        })
         }
         
       </ItemCon>
@@ -74,6 +81,5 @@ align-items: center;
 cursor: pointer;
 
 `
-
-
-export default MoodSection;
+export const MoodSectionComponent=React.memo(MoodSection)
+ 
