@@ -10,7 +10,7 @@ const restaurantSlice=createSlice({
         addDataTorestaurantApi:(state,action)=>{
             state.restaurantAPi=action.payload
         },
-        addMoodToday:(state,action)=>{
+        addMoodTodayData:(state,action)=>{
             state.moodToday=action.payload
         },
         addTopRestaurant:(state,action)=>{
@@ -20,5 +20,5 @@ const restaurantSlice=createSlice({
         }
     }
 })
-export const{addMoodToday,addTopRestaurant,addDataTorestaurantApi}=restaurantSlice.actions;
+export const{addMoodTodayData,addTopRestaurant,addDataTorestaurantApi}=restaurantSlice.actions;
 export default restaurantSlice.reducer;
