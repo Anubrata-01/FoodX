@@ -3,3 +3,23 @@ export const foodApi="https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.471
 export const color= "#ffa700";
 export const CDN_url="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_558,h_320,c_fill/";
 export const Swigy_url="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/";
+// import TuneIcon from '@mui/icons-material/Tune';
+export const filterObj=[{
+    "name":"Filter",
+    "icon":""
+},
+{
+    "name":"Sort by",
+    "icon":""
+},{
+    "name":"Pure Veg",
+    "icon":""
+},{
+    "name":"Rs.300-Rs.600",
+    "icon":""
+},{
+    "name":"Less than Rs.300",
+    "icon":""
+}
+
+]
