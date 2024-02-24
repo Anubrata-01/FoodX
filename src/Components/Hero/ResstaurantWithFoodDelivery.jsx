@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, {  } from 'styled-components';
 import RestaurantCard from './RestaurantCard';
 import LineBar from '../../Utilities/LineBar';
+import ShimmerEffectForResWithFoodDelivery from '../../Utilities/ShimmerEffectForResWithFoodDelivery';
 
 const ResstaurantWithFoodDelivery = () => {
     const ResFoodDelivery = useSelector(store => store?.restaurant?.restaurantAPi);
     
     if (!ResFoodDelivery || !ResFoodDelivery.data || !ResFoodDelivery.data.cards) {
-        return null; // Return early if data is not available
+        return <ShimmerEffectForResWithFoodDelivery/>
     }
 
     const deliveryTitle = "Restaurants with online food delivery in Kolkata";
@@ -40,6 +41,9 @@ const ResstaurantWithFoodDelivery = () => {
         </Container>
     );
 };
+
+
+
 
 const Container = styled.div`
     margin-left: 10%;

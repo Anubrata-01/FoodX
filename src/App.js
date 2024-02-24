@@ -1,10 +1,11 @@
+import React, { Suspense } from 'react';
 import Navbar from './Components/Header/Navbar';
 import LogIn from './Components/Hero/LogIn';
 // import "./App.css"
 import MoodContainer from './Components/Hero/MoodContainer';
-import MoodItemContainer from './Components/Hero/MoodItemContainer';
 import Home from './Page/Home';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+const LazyTopResCardDetails=React.lazy(()=>import("./Components/Hero/TopRestaurantCardDetails"))
 const isAuthentication=()=>{
   return true;
 }
@@ -26,6 +27,10 @@ function App() {
       path:"/login",
       element:<LogIn/>
     },
+    {
+      path:"/restaurant/:userId",
+      element:<Suspense fallback={"Loading.."}><LazyTopResCardDetails Navbar={Navbar} isAuthentication={isAuthentication}/></Suspense>
+    }
     
   ])
   return (

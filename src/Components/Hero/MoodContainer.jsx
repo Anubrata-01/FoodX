@@ -1,9 +1,8 @@
 import React, { Suspense } from 'react'
 import ShimmerEffect from '../../Utilities/ShimmerEffect'
-// import MoodItemContainer from './MoodItemContainer'
 const MoodItemContainer=React.lazy(()=>import("./MoodItemContainer"))
 const MoodContainer = ({Navbar,isAuthetication}) => {
-   
+   console.log("ok rendr")
   return (
     <div>{
             !isAuthetication?(<>

@@ -32,6 +32,16 @@ const RestaurantCard = ({ item }) => {
     </Container>
   );
 };
+export const withPromoted = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <p>Promoted</p>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
 const Container = styled.div`
   margin: 0px;
   -webkit-font-smoothing: antialiased;

@@ -4,7 +4,10 @@ import RestaurantCard from "./RestaurantCard";
 import { useSelector } from "react-redux";
 import { FcLeft, FcRight } from "react-icons/fc";
 import LineBar from "../../Utilities/LineBar";
-
+import ShimmerEffect from "../../Utilities/ShimmerEffect";
+import { withPromoted } from "./RestaurantCard";
+import { NavLink, } from "react-router-dom";
+const EnhancedRestaurantCard = withPromoted(RestaurantCard);
 const TopRestaurant = () => {
   const TopRestaurant = useSelector(
     (store) => store?.restaurant?.restaurantAPi
@@ -42,7 +45,7 @@ const TopRestaurant = () => {
   };
 
   if (!resCardInfo) {
-    return null;
+    return <ShimmerEffect />;
   }
 
   return (
@@ -58,8 +61,11 @@ const TopRestaurant = () => {
       </ScrollButtons>
       <ResCardContainer ref={resCardContainerRef}>
         <ResCon>
-          {resCardInfo?.map((card, index) => (
-            <RestaurantCard key={index} item={card} index={index} />
+          {resCardInfo?.map((card, index) => (<>
+            <StyledNavLink to={"/restaurant/"+card?.info?.id}>
+            <RestaurantCard key={index} item={card} index={index}  />
+            </StyledNavLink>
+            </>
           ))}
         </ResCon>
       </ResCardContainer>
@@ -115,5 +121,7 @@ const ScrollButton = styled.button`
   cursor: pointer;
   margin: 0 8px;
 `;
-
+const StyledNavLink=styled(NavLink)`
+text-decoration: none;
+`
 export default TopRestaurant;

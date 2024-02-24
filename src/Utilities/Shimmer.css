@@ -1,0 +1,29 @@
+
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+ }
+.shimmer-container .card-container .img {  
+    width: 245px;
+    height: 180px;
+    border-radius: 10px;
+    background-color: #9a9797;
+}
+.shimmer-container .card-container .text-container .title h3{
+    width: 200px;
+    height: 16px;
+    border-radius: 4px;
+
+    background-color: #9a9797;
+
+    /* background-color: #dc4343; */
+
+}
+.shimmer-container .card-container .text-container .rate-time{
+ width: 150px;
+ height: 20px;
+ border-radius: 4px;
+ background-color: #9a9797;
+margin-top: 6px;
+}
