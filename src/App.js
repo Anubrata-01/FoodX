@@ -1,10 +1,11 @@
-import React, { Suspense } from 'react';
+import React, { StrictMode, Suspense } from 'react';
 import Navbar from './Components/Header/Navbar';
 import LogIn from './Components/Hero/LogIn';
-// import "./App.css"
-import MoodContainer from './Components/Hero/MoodContainer';
 import Home from './Page/Home';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+const LazyMoodContainer=React.lazy(()=>import("./Components/Hero/MoodContainer"))
+const LazyMoodItemsContainer=React.lazy(()=>import("./Components/Hero/MoodItemContainer"))
+
 const LazyTopResCardDetails=React.lazy(()=>import("./Components/Hero/TopRestaurantCardDetails"))
 const isAuthentication=()=>{
   return true;
@@ -21,7 +22,7 @@ function App() {
     },
     {
       path:"/:userId",
-      element:<MoodContainer Navbar={Navbar} isAuthentication={isAuthentication}/>
+      element:<Suspense ><LazyMoodContainer Navbar={Navbar} isAuthentication={isAuthentication}/></Suspense>
     },
     {
       path:"/login",
@@ -34,9 +35,11 @@ function App() {
     
   ])
   return (
-    
-      <RouterProvider router={router}/>
    
+
+   
+      <RouterProvider router={router}/>
+    
   );
 }
 
