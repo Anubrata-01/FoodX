@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useLocation,} from "react-router-dom";
 const restaurantSlice=createSlice({
     name:"Restaurant",
     initialState:{
@@ -8,6 +7,7 @@ const restaurantSlice=createSlice({
         topRestaurant:null,
         resCardDetails:null,
         display:null,
+        currentRoute:null
     },
     reducers:{
         addDataTorestaurantApi:(state,action)=>{
@@ -16,6 +16,7 @@ const restaurantSlice=createSlice({
         addMoodTodayData:(state,action)=>{
             if(state.moodToday == null){
             state.moodToday=action.payload;
+            // state.userId=isUserId;
             }
             state.moodToday=action.payload
         },
@@ -29,8 +30,19 @@ const restaurantSlice=createSlice({
         },
         isDisplay:(state,action)=>{
             state.display=action.payload
-        }
+        },
+        setCurrentRoute: (state, action) => {
+            state.currentRoute = action.payload;
+            if (state.currentRoute === state.userId) {
+                // Dispatch action to add mood data
+                state.moodToday = action.payload;
+                console.log(state)
+            } else {
+                // Set moodToday to null
+                state.moodToday = null;
+            }
+          },
     }
 })
-export const{addMoodTodayData,addTopRestaurant,addDataTorestaurantApi,isDisplay,addResCardDetails}=restaurantSlice.actions;
+export const{addMoodTodayData,addTopRestaurant,addDataTorestaurantApi,isDisplay,addResCardDetails,setCurrentRoute}=restaurantSlice.actions;
 export default restaurantSlice.reducer;
