@@ -1,47 +1,47 @@
-import React, { } from 'react';
-import styled, { } from 'styled-components';
-import { useParams } from 'react-router-dom';
-import useFetchMoodItemsDetails from '../../CustomHooks/useFetchMoodItemsDetails';
-import { useSelector } from 'react-redux';
-import { filterObj } from '../../constant';
-import RestaurantCard from './RestaurantCard';
-import ShimmerEffectForResWithFoodDelivery from '../../Utilities/ShimmerEffectForResWithFoodDelivery';
-import ShimmerEffect from '../../Utilities/ShimmerEffect';
-const MoodItemContainer = () => {
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useLocation, useParams } from "react-router-dom";
+import useFetchMoodItemsDetails from "../../CustomHooks/useFetchMoodItemsDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { filterObj } from "../../constant";
+import RestaurantCard from "./RestaurantCard";
+import ShimmerEffectForResWithFoodDelivery from "../../Utilities/ShimmerEffectForResWithFoodDelivery";
+import { setCurrentRoute } from "../../Redux Store/restaurantSlice";
+const MoodItemContainer = ({ user }) => {
   const { userId } = useParams();
-  const Mood_Item_Url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&collection=${userId}&tags=layout_CCS_Dosa&type=rcv2`;
-  useFetchMoodItemsDetails(Mood_Item_Url)
+  const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentRoute(location.pathname));
+  }, [dispatch, location.pathname]);
+  useFetchMoodItemsDetails(userId);
   const MoodItemContainerData = useSelector(
     (store) => store?.restaurant?.moodToday
   );
-    console.log("mooditemcontainer")
-  // Mimic loading state
-  if (!MoodItemContainerData) {
-    return <ShimmerEffect/>
-  }
+  
 
   const detailsArray = MoodItemContainerData?.cards?.slice(0, 3);
   const cards = MoodItemContainerData?.cards?.slice(3, -1);
-  if(!cards){
-    return <ShimmerEffectForResWithFoodDelivery/>
+  if (!cards) {
+    return <ShimmerEffectForResWithFoodDelivery />;
   }
   const { title, description } = detailsArray?.[0]?.card?.card || {};
+  console.log("mooditemcontainer");
 
   return (
     <Container>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <FilterArea>
-        {filterObj?.map((item) => (
-          <ObjItem key={item.id}>{item.name}</ObjItem>
+        {filterObj?.map((item, index) => (
+          <ObjItem key={index}>{item.name}</ObjItem>
         ))}
       </FilterArea>
       <Title1>Restaurants to explore</Title1>
       <CardContainer>
-        {
-          cards?.map((item, index) => (
-            <RestaurantCard key={index} item={item?.card?.card} />
-          ))}
+        {cards?.map((item, index) => (
+          <RestaurantCard key={index} item={item?.card?.card} />
+        ))}
       </CardContainer>
     </Container>
   );
@@ -58,7 +58,7 @@ const Title = styled.p`
   font-weight: 600;
 `;
 const Title1 = styled.p`
-margin-top:-10px;
+  margin-top: -10px;
   font-size: 1.3rem;
   font-weight: 600;
 `;
