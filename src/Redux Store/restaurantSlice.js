@@ -36,10 +36,12 @@ const restaurantSlice=createSlice({
             if (state.currentRoute === state.userId) {
                 // Dispatch action to add mood data
                 state.moodToday = action.payload;
+                
                 console.log(state)
             } else {
                 // Set moodToday to null
                 state.moodToday = null;
+                state.resCardDetails=null;
             }
           },
     }
