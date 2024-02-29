@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { setCurrentRoute } from "../../Redux Store/restaurantSlice";
 import ShimmerEffectForResWithFoodDelivery from "../../Utilities/ShimmerEffectForResWithFoodDelivery";
 import LineBar from "../../Utilities/LineBar";
+import OffersSection from "./OffersSection";
+import FoodAccordian from "./FoodAccordian";
 
 const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
   const { userId } = useParams();
@@ -22,6 +24,16 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
   useFetchTopResCardDetails(url);
   const cardDetails = useSelector((store) => store?.restaurant?.resCardDetails);
   cardDetails && console.log(cardDetails);
+  const FoodAccrodians = useMemo(
+    () =>
+      cardDetails?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+        (card) =>
+          card?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      ),
+    [cardDetails]
+  );
+  console.log(FoodAccrodians);
   const infoCard = useMemo(
     () =>
       cardDetails?.data?.cards?.find(
@@ -41,6 +53,7 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
     cuisines,
     city,
     costForTwo,
+    costForTwoMessage,
     areaName,
     avgRating,
     sla,
@@ -55,28 +68,41 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
         <>
           <Navbar />
           <Div>
-          <DetailsContainer>
-            <SubCon>
-              <Title>{name}</Title>
+            <DetailsContainer>
+              <SubCon>
+                {/* <Title>{name}</Title> */}
+                <SubTitle>{name}</SubTitle>
+                <Cuisine>{cuisines && cuisines?.slice(0, 1)}</Cuisine>
+                <AreaCon>
+                  <Area>{areaName}</Area>
+                  <Distance>{sla && sla?.lastMileTravelString}</Distance>
+                </AreaCon>
+                <DelivaryDetailsCon>
+                  <DelivaryFee>{feeDetails && feeDetails.message}</DelivaryFee>
+                </DelivaryDetailsCon>
+              </SubCon>
+              <RatingCon>
+                <Ratings>{avgRating}</Ratings>
+                <Span>{totalRatingsString}</Span>
+              </RatingCon>
+            </DetailsContainer>
+            <LineBar />
 
-              <SubTitle>{name}</SubTitle>
-              <Cuisine>{cuisines && cuisines?.slice(0, 1)}</Cuisine>
-              <AreaCon>
-                <Area>{areaName}</Area>
-                <Distance>{sla && sla?.lastMileTravelString}</Distance>
-              </AreaCon>
-              <DelivaryDetailsCon>
-                <DelivaryFee>{feeDetails && feeDetails.message}</DelivaryFee>
-              </DelivaryDetailsCon>
-            </SubCon>
-            <RatingCon>
-              <Ratings>
-                {avgRating}
-              </Ratings>
-              <Span>{totalRatingsString}</Span>
-            </RatingCon>
-          </DetailsContainer>
-          <LineBar />
+            <OfeerSectionCon>
+              <OffersSection cost={costForTwoMessage} time={sla} />
+            </OfeerSectionCon>
+            <LineBar />
+            <div>
+              {FoodAccrodians &&
+                FoodAccrodians.map((item, index) => (
+                  <div key={index}>
+                    <FoodAccordian
+                      foodItems={item?.card?.card?.itemCards}
+                      title={item?.card?.card?.title}
+                    />
+                  </div>
+                ))}
+            </div>
           </Div>
         </>
       )}
@@ -85,13 +111,11 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
 };
 
 const Container = styled.div``;
-const Div=styled.div`
-    width:60%;
-  margin-top: 10%;
-
+const Div = styled.div`
+  width: 60%;
+  margin-top: 8%;
   margin-left: 20%;
-
-`
+`;
 const DetailsContainer = styled.div`
   width: 100%;
   margin-bottom: 2%;
@@ -107,12 +131,14 @@ const Title = styled.p`
   letter-spacing: -0.4px;
   color: rgba(2, 6, 12, 0.92);
 `;
-const SubCon = styled.div``;
+const SubCon = styled.div`
+  margin-top: -1%;
+`;
 const SubTitle = styled.p`
   font-size: 1rem;
   font-weight: 600;
   color: #282c3f;
-  margin-bottom: 8px;
+  margin-bottom: -2px;
   text-transform: capitalize;
 `;
 const Cuisine = styled.p`
@@ -146,7 +172,7 @@ const DelivaryFee = styled.p`
   color: #7e808c;
 `;
 const RatingCon = styled.div`
-  margin-top: 11%;
+  margin-top: 5%;
   border: 1px solid #e9e9eb;
   box-shadow: 0 1px 5px #f9f9f9;
   border-radius: 6px;
@@ -170,5 +196,10 @@ const Span = styled.span`
   color: #8b8d97;
   font-family: ProximaNovaCondensedRegular, arial, Helvetica Neue, sans-serif;
   font-weight: 600;
+`;
+const OfeerSectionCon = styled.div`
+  /* overflow-x:scroll; */
+  margin-bottom: 4%;
+  /* width: 100%; */
 `;
 export default React.memo(TopRestaurantCardDetails);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import useFetchMoodItemsDetails from "../../CustomHooks/useFetchMoodItemsDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { filterObj } from "../../constant";
@@ -18,7 +18,6 @@ const MoodItemContainer = ({ user }) => {
   const MoodItemContainerData = useSelector(
     (store) => store?.restaurant?.moodToday
   );
-  
 
   const detailsArray = MoodItemContainerData?.cards?.slice(0, 3);
   const cards = MoodItemContainerData?.cards?.slice(3, -1);
@@ -40,7 +39,12 @@ const MoodItemContainer = ({ user }) => {
       <Title1>Restaurants to explore</Title1>
       <CardContainer>
         {cards?.map((item, index) => (
-          <RestaurantCard key={index} item={item?.card?.card} />
+          <StyledNavLink
+            key={index}
+            to={"/restaurant/" + item?.card?.card?.info?.id}
+          >
+            <RestaurantCard item={item?.card?.card} />
+          </StyledNavLink>
         ))}
       </CardContainer>
     </Container>
@@ -102,5 +106,7 @@ const CardContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
 `;
-
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+`;
 export default React.memo(MoodItemContainer);

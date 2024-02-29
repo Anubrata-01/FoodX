@@ -44,12 +44,12 @@ const Navbar = () => {
               <FaCartPlus />
               <StyledNavLink to={""}>Cart</StyledNavLink>
             </NavLinks>
-            <NavLinks onClick={handleLoginBtn}>
+            <NavLinks  onClick={handleLoginBtn} >
               {
                 !isShow?.display?(<FaSignInAlt />):(<FaSignOutAlt/>)
               }
               
-              <StyledNavLink to={""}>{isShow?.text}</StyledNavLink>
+              <StyledNavLink to={"/login"}>{isShow?.text}</StyledNavLink>
 
             </NavLinks>
           </List>
@@ -83,6 +83,9 @@ const LogoContainer = styled.div`
 const LogoName = styled.span`
   color: red;
 `;
+const ParaGraph=styled.h1`
+  color:red;
+`
 const Licon = styled.div`
   width: 50%;
   @media screen and (max-width: 640px) {

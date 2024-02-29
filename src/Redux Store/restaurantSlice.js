@@ -42,6 +42,7 @@ const restaurantSlice=createSlice({
                 // Set moodToday to null
                 state.moodToday = null;
                 state.resCardDetails=null;
+                state.restaurantAPi=null
             }
           },
     }

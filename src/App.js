@@ -30,7 +30,7 @@ function App() {
     },
     {
       path:"/restaurant/:userId",
-      element:<Suspense fallback={"Loading.."}><LazyTopResCardDetails Navbar={Navbar} isAuthentication={isAuthentication}/></Suspense>
+      element:<Suspense fallback={""}><LazyTopResCardDetails Navbar={Navbar} isAuthentication={isAuthentication}/></Suspense>
     }
     
   ])
