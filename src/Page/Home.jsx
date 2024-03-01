@@ -6,6 +6,7 @@ import ResstaurantWithFoodDelivery from '../Components/Hero/ResstaurantWithFoodD
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCurrentRoute } from '../Redux Store/restaurantSlice'
+import styled from 'styled-components'
 const Home = ({isShow}) => {
   const location=useLocation();
   const dispatch=useDispatch()
@@ -13,10 +14,10 @@ const Home = ({isShow}) => {
     dispatch(setCurrentRoute(location.pathname));
   }, [dispatch, location.pathname]);
   return (
-    <div>
+    <Container>
       
         
-          <Navbar/>
+          <Navbar isFixe={"fixed"}/>
           <MoodSectionComponent/>
           <TopRestaurant/>
           <ResstaurantWithFoodDelivery/>
@@ -24,8 +25,11 @@ const Home = ({isShow}) => {
       
         
       
-    </div>
+    </Container>
   )
 }
-
+const Container=styled.div`
+/* overflow-x: hidden; */
+/* width:100%; */
+`
 export default Home

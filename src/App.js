@@ -3,6 +3,7 @@ import Navbar from './Components/Header/Navbar';
 import LogIn from './Components/Hero/LogIn';
 import Home from './Page/Home';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import Signin from './Components/Hero/Signin';
 const LazyMoodContainer=React.lazy(()=>import("./Components/Hero/MoodContainer"))
 const LazyMoodItemsContainer=React.lazy(()=>import("./Components/Hero/MoodItemContainer"))
 
@@ -27,6 +28,10 @@ function App() {
     {
       path:"/login",
       element:<LogIn/>
+    },
+    {
+      path:"/signin",
+      element:<Signin/>
     },
     {
       path:"/restaurant/:userId",

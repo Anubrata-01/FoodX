@@ -1,56 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Logo } from "../../constant";
 import { FaHome } from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
-import { NavLink,} from "react-router-dom";
-const Navbar = () => {
-  const[isShow,setIsShow]=useState({
-    "display":false,
-    "text":"Sign in"
-  })
+import { NavLink } from "react-router-dom";
 
-  const handleLoginBtn=()=>{
+const Navbar = ({ isFixed }) => {
+  const [fixed, setFixed] = useState("");
+  useEffect(() => {
+    setFixed(isFixed);
+  }, [isFixed]);
+
+  const [isShow, setIsShow] = useState({
+    display: false,
+    text: "Sign in"
+  });
+
+  const handleLoginBtn = () => {
     setIsShow(prevState => ({
       ...prevState,
-      "display": !prevState.display,
-      "text":prevState?.display?"Sign in":"Sign out"
+      display: !prevState.display,
+      text: prevState?.display ? "Sign in" : "Sign out"
     }));
-    console.log(isShow)
-
-  }
+  };
 
   return (
-    <Container>
+    <Container isFixed={fixed}>
       <NavBar>
         <LogoContainer>
           {Logo} <LogoName>FoodX</LogoName>
-          </LogoContainer>
+        </LogoContainer>
         <Licon>
           <List>
-            <NavLinks >
-            <FaHome />
-            <StyledNavLink to={"/home"}>Home</StyledNavLink>
-              
+            <NavLinks>
+              <FaHome />
+              <StyledNavLink to={"/home"}>Home</StyledNavLink>
             </NavLinks>
             <NavLinks>
               <BiSolidOffer />
               <StyledNavLink to={""}>Offers</StyledNavLink>
-
             </NavLinks>
             <NavLinks>
               <FaCartPlus />
               <StyledNavLink to={""}>Cart</StyledNavLink>
             </NavLinks>
-            <NavLinks  onClick={handleLoginBtn} >
-              {
-                !isShow?.display?(<FaSignInAlt />):(<FaSignOutAlt/>)
-              }
-              
+            <NavLinks onClick={handleLoginBtn}>
+              {!isShow?.display ? <FaSignInAlt /> : <FaSignOutAlt />}
               <StyledNavLink to={"/login"}>{isShow?.text}</StyledNavLink>
-
             </NavLinks>
           </List>
         </Licon>
@@ -58,15 +56,17 @@ const Navbar = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
   margin-top: -7px;
-  width:1200px;
-  position:fixed;
+  width: 1200px;
+  position: fixed;
   z-index: 999;
-  top:0;
+  top: 0;
   background-color: #fff;
-  box-shadow:0 15px 40px -20px rgba(40,44,63,.15);;
+  box-shadow: 0 15px 40px -20px rgba(40, 44, 63, 0.15);
 `;
+
 const NavBar = styled.nav`
   width: 80%;
   margin-left: 8%;
@@ -74,24 +74,25 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
 `;
+
 const LogoContainer = styled.div`
   width: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
+
 const LogoName = styled.span`
   color: red;
 `;
-const ParaGraph=styled.h1`
-  color:red;
-`
+
 const Licon = styled.div`
   width: 50%;
   @media screen and (max-width: 640px) {
     width: auto;
   }
 `;
+
 const List = styled.ul`
   list-style: none;
   display: flex;
@@ -101,22 +102,24 @@ const List = styled.ul`
     background-color: cyan;
   }
 `;
+
 const NavLinks = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  color:#3d4152;
+  color: #3d4152;
   font-size: 16px;
-  font-weight:500;
+  font-weight: 500;
   cursor: pointer;
   :hover {
-    color:#ffa700;
+    color: #ffa700;
   }
   @media screen and (max-width: 640px) {
     gap: 1px;
   }
 `;
+
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   align-items: center;

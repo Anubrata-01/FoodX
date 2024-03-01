@@ -66,7 +66,11 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
     <Container>
       {isAuthentication && (
         <>
-          <Navbar />
+        <DIv>
+        <Navbar isFixed={"relative"} />
+
+        </DIv>
+          {/* <Navbar /> */}
           <Div>
             <DetailsContainer>
               <SubCon>
@@ -111,6 +115,10 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
 };
 
 const Container = styled.div``;
+const DIv=styled.div`
+position: relative;
+overflow-x:hidden
+`
 const Div = styled.div`
   width: 60%;
   margin-top: 8%;

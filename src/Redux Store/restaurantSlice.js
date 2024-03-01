@@ -7,18 +7,23 @@ const restaurantSlice=createSlice({
         topRestaurant:null,
         resCardDetails:null,
         display:null,
-        currentRoute:null
+        currentRoute:null,
+        userDetails:null,
+        isLogged:false,
     },
     reducers:{
         addDataTorestaurantApi:(state,action)=>{
             state.restaurantAPi=action.payload
         },
         addMoodTodayData:(state,action)=>{
-            if(state.moodToday == null){
+            if(!state.moodToday){
             state.moodToday=action.payload;
             // state.userId=isUserId;
             }
-            state.moodToday=action.payload
+            else{
+                state.moodToday=null
+            }
+            
         },
         addTopRestaurant:(state,action)=>{
             if(!state.topRestaurant){
@@ -35,7 +40,7 @@ const restaurantSlice=createSlice({
             state.currentRoute = action.payload;
             if (state.currentRoute === state.userId) {
                 // Dispatch action to add mood data
-                state.moodToday = action.payload;
+                // state.moodToday = action.payload;
                 
                 console.log(state)
             } else {
@@ -45,7 +50,15 @@ const restaurantSlice=createSlice({
                 state.restaurantAPi=null
             }
           },
+        setUserDetails:(state,action)=>{
+            state.userDetails=action.payload;
+            // state.isLogged=action.payload;
+        },
+        setisLogged:(state,action)=>{
+            state.isLogged=action.payload;
+            // state.isLogged=action.payload;
+        }
     }
 })
-export const{addMoodTodayData,addTopRestaurant,addDataTorestaurantApi,isDisplay,addResCardDetails,setCurrentRoute}=restaurantSlice.actions;
+export const{addMoodTodayData,addTopRestaurant,addDataTorestaurantApi,isDisplay,addResCardDetails,setCurrentRoute,setUserDetails,setisLogged}=restaurantSlice.actions;
 export default restaurantSlice.reducer;
