@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 // import { <GlobalStyle></GlobalStyle> } from "./Styles/globalStyles";
 import { GlobalStyle } from "../Styles/globalStyles";
 import { useFormik } from "formik";
-import { signUpSchema } from "../Schema/indexSchema";
-import { createUserWithEmailAndPassword,
+// import { signUpSchema } from "../Schema/indexSchema";
+import { 
   signInWithEmailAndPassword,
-  updateProfile,sendEmailVerification } from "firebase/auth";
+   } from "firebase/auth";
   import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { signInSchema } from "../Schema/signInSchema";
+import { useDispatch } from "react-redux";
+import { setUserDetails, setisLogged } from "../../Redux Store/restaurantSlice";
 
 const initialValues = {
   name: "",
@@ -16,33 +19,33 @@ const initialValues = {
   password: "",
   confirm_password: "",
 };
-const Registration = () => {
-  const navigate=useNavigate()
+const Signin = () => {
+  const[isLoged,setIsLoged]=useState(true)
+  const navigate=useNavigate();
+  // const history=useHistory()
+  const dispatch=useDispatch()
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema: signUpSchema,
+      validationSchema: signInSchema,
       onSubmit: async (values, action) => {
         console.log(
           "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
           values
         );
         try {
-          const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+          const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
           const user = userCredential.user;
-          
+          // user.log=isLogged
+          dispatch(setUserDetails(user))
+          dispatch(setisLogged(isLoged))
           // Update user profile
-          await updateProfile(user, {
-            displayName: values.name // Set the display name to the provided name
-          });
+          
           navigate("/")
           console.log("User profile updated:", user);
-      
-          // Reset form after successful registration
           action.resetForm();
         } catch (error) {
           console.error("Registration failed:", error);
-          // Handle errors, e.g., display an error message to the user
         }
       },
     });
@@ -60,27 +63,10 @@ const Registration = () => {
               <div className="modal-left">
                 <h1 className="modal-title">Welcome!</h1>
                 <p className="modal-desc">
-                  Please Fill Up The Form!
+                  Sign in with email and password
                 </p>
                 <form onSubmit={handleSubmit}>
-                  <div className="input-block">
-                    <label htmlFor="name" className="input-label">
-                      Name
-                    </label>
-                    <input
-                      type="name"
-                      autoComplete="off"
-                      name="name"
-                      id="name"
-                      placeholder="Name"
-                      value={values.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.name && touched.name ? (
-                      <p className="form-error">{errors.name}</p>
-                    ) : null}
-                  </div>
+                  
                   <div className="input-block">
                     <label htmlFor="email" className="input-label">
                       Email
@@ -117,35 +103,18 @@ const Registration = () => {
                       <p className="form-error">{errors.password}</p>
                     ) : null}
                   </div>
-                  <div className="input-block">
-                    <label htmlFor="confirm_password" className="input-label">
-                      Confirm Password
-                    </label>
-                    <input
-                      type="password"
-                      autoComplete="off"
-                      name="confirm_password"
-                      id="confirm_password"
-                      placeholder="Confirm Password"
-                      value={values.confirm_password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.confirm_password && touched.confirm_password ? (
-                      <p className="form-error">{errors.confirm_password}</p>
-                    ) : null}
-                  </div>
+                  
                   <div className="modal-buttons">
-                    <a href="#" className="">
+                    <a href="#" className="gmail">
                       Want to register using Gmail?
                     </a>
                     <button className="input-button" type="submit">
-                      Registration
+                      Sign in
                     </button>
                     </div>
                 </form>
                 <p className="sign-up">
-                  Already have an account? <Link to={"/signin"}>Sign In now</Link>
+                  Don't have an account? <Link to={"/login"}>Create an new ac.</Link>
                 </p>
               </div>
               <div className="modal-right">
@@ -162,7 +131,7 @@ const Registration = () => {
 const Wrapper = styled.section`
   .container {
     position: fixed;
-    top: 5rem;
+    top: 0;
     left: 5rem;
     right: 0;
     bottom: 0;
@@ -172,9 +141,9 @@ const Wrapper = styled.section`
     align-items: center;
   }
   .modal {
-    width: 30%;
+    width: 100%;
+    margin-top: 1rem;
     /* height: 60px; */
-    margin-top: -4rem;
     background: rgba(51, 51, 51, 0.5);
     display: flex;
     flex-direction: column;
@@ -185,7 +154,7 @@ const Wrapper = styled.section`
   .modal-container {
     display: flex;
     max-width: 40vw;
-    width: 70%;
+    width: 100%;
     border-radius: 10px;
     overflow: hidden;
     position: absolute;
@@ -230,9 +199,11 @@ const Wrapper = styled.section`
     color: rgba(51, 51, 51, 0.6);
     font-size: 14px;
   }
-
+  .gmail:hover{
+    color:rgba(114, 69, 69, 0.6)
+  }
   .sign-up {
-    margin: 20px 0 0;
+    margin: 60px 0 0;
     font-size: 14px;
     text-align: center;
   }
@@ -309,4 +280,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default Registration;
+export default Signin;
