@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const FoodItemCard = ({ info }) => {
+  const[num,setNum]=useState(0);
+  const[login,setLogin]=useState(false);
+  const loggedIn=useSelector((store)=>store?.restaurant?.isLogged)
+  const navigate=useNavigate()
+  const {userId}=useParams();
+  console.log(userId)
+  // useEffect(()=>setLogin(loggedIn),[loggedIn])
   const {
     id,
     name,
@@ -14,6 +23,31 @@ const FoodItemCard = ({ info }) => {
     description,
     defaultPrice,
   } = info && info;
+  const addtoCart = useCallback(() => {
+    
+    if (num === 0 && loggedIn ===true) {
+      setNum(prevNum => prevNum + 1);
+      console.log("ok");
+    }
+    else{
+      navigate("/signin")
+    }
+
+    // login?(num===0?(setNum(num+1)):""):(navigate)
+  }, [num]);
+
+  const handleMinus = useCallback(() => {
+    if (num > 0) {
+      setNum(prevNum => prevNum - 1);
+      console.log("minus")
+    }
+  }, [num]);
+
+  const handlePlus = useCallback(() => {
+    if (num >= 1) {
+      setNum(prevNum => prevNum + 1);
+    }
+  }, [num]);
   return (
     <div>
       <Container>
@@ -33,7 +67,18 @@ const FoodItemCard = ({ info }) => {
             <Img src="" alt="" />
           )}
 
-          <Button>Add</Button>
+          <Button>
+            {
+              !num>0?<Add onClick={addtoCart}>Add</Add>:<Con>
+              <MinusSpan onClick={handleMinus}>-</MinusSpan>
+              <Quantity>{num}</Quantity>
+              <PlusSpan onClick={handlePlus}>+</PlusSpan>
+            </Con>
+            }
+            
+            
+
+          </Button>
         </ImgCon>
       </Container>
       <LineBar />
@@ -99,6 +144,23 @@ const Button = styled.button`
   background-color: #fff;
   margin-left: 8px;
   cursor: pointer;
+  animation: _1sXH- .2s ease;
+    opacity: 1;
+    transform: translateZ(0);
 `;
+const Add=styled.p`
+  margin-top:0;
+`;
+const Con=styled.div`
+margin-left: 7px;
+ display: flex;
+ gap:22px;
+`
+const PlusSpan=styled.span``;
+const MinusSpan=styled.span`
+animation: _1vozQ .2s ease;
+`;
+const Quantity=styled.span``;
+
 
 export default FoodItemCard;
