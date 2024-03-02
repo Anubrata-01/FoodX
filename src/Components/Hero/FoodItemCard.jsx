@@ -3,13 +3,15 @@ import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUserId } from "../../Redux Store/restaurantSlice";
 
 const FoodItemCard = ({ info }) => {
   const[num,setNum]=useState(0);
   const[login,setLogin]=useState(false);
   const loggedIn=useSelector((store)=>store?.restaurant?.isLogged)
-  const navigate=useNavigate()
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const {userId}=useParams();
   console.log(userId)
   // useEffect(()=>setLogin(loggedIn),[loggedIn])
@@ -30,6 +32,7 @@ const FoodItemCard = ({ info }) => {
       console.log("ok");
     }
     else{
+      dispatch(addUserId(userId))
       navigate("/signin")
     }
 

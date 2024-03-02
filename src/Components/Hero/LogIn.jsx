@@ -1,13 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-// import { <GlobalStyle></GlobalStyle> } from "./Styles/globalStyles";
 import { GlobalStyle } from "../Styles/globalStyles";
 import { useFormik } from "formik";
 import { signUpSchema } from "../Schema/indexSchema";
-import { createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,sendEmailVerification } from "firebase/auth";
-  import { auth } from "../../Utilities/Firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 
 const initialValues = {
@@ -17,7 +14,7 @@ const initialValues = {
   confirm_password: "",
 };
 const Registration = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -28,21 +25,21 @@ const Registration = () => {
           values
         );
         try {
-          const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            values.email,
+            values.password
+          );
           const user = userCredential.user;
-          
           // Update user profile
           await updateProfile(user, {
-            displayName: values.name // Set the display name to the provided name
+            displayName: values.name, // Set the display name to the provided name
           });
-          navigate("/")
+          navigate("/");
           console.log("User profile updated:", user);
-      
-          // Reset form after successful registration
           action.resetForm();
         } catch (error) {
           console.error("Registration failed:", error);
-          // Handle errors, e.g., display an error message to the user
         }
       },
     });
@@ -59,9 +56,7 @@ const Registration = () => {
             <div className="modal-container">
               <div className="modal-left">
                 <h1 className="modal-title">Welcome!</h1>
-                <p className="modal-desc">
-                  Please Fill Up The Form!
-                </p>
+                <p className="modal-desc">Please Fill Up The Form!</p>
                 <form onSubmit={handleSubmit}>
                   <div className="input-block">
                     <label htmlFor="name" className="input-label">
@@ -136,21 +131,18 @@ const Registration = () => {
                     ) : null}
                   </div>
                   <div className="modal-buttons">
-                    <a href="#" className="">
-                      Want to register using Gmail?
-                    </a>
+                    <Link to={""}>Want to register using Gmail?</Link>
                     <button className="input-button" type="submit">
                       Registration
                     </button>
-                    </div>
+                  </div>
                 </form>
                 <p className="sign-up">
-                  Already have an account? <Link to={"/signin"}>Sign In now</Link>
+                  Already have an account?{" "}
+                  <Link to={"/signin"}>Sign In now</Link>
                 </p>
               </div>
-              <div className="modal-right">
-                
-              </div>
+              <div className="modal-right"></div>
             </div>
           </div>
         </div>
@@ -174,7 +166,7 @@ const Wrapper = styled.section`
   .modal {
     width: 30%;
     /* height: 60px; */
-    margin-top: -4rem;
+    margin-top: -6rem;
     background: rgba(51, 51, 51, 0.5);
     display: flex;
     flex-direction: column;
@@ -189,7 +181,6 @@ const Wrapper = styled.section`
     border-radius: 10px;
     overflow: hidden;
     position: absolute;
-
     transition-duration: 0.3s;
     background: #fff;
   }
@@ -206,15 +197,12 @@ const Wrapper = styled.section`
     margin: 6px 0 30px 0;
   }
   .modal-left {
-    padding: 60px 30px 20px;
+    padding: 30px 30px 20px;
     background: #fff;
     flex: 1.5;
     transition-duration: 0.5s;
     opacity: 1;
   }
-
- 
- 
 
   .modal.is-open .modal-left {
     transform: translateY(0);
@@ -240,7 +228,7 @@ const Wrapper = styled.section`
     color: #8c7569;
   }
   .input-button {
-    padding: 1.2rem 3.2rem;
+    padding: 1rem 3rem;
     outline: none;
     text-transform: uppercase;
     border: 0;
@@ -266,10 +254,10 @@ const Wrapper = styled.section`
   .input-block {
     display: flex;
     flex-direction: column;
-    padding: 10px 10px 8px;
+    padding: 5px 5px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     transition: 0.3s;
   }
   .input-block input {

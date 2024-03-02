@@ -1,58 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-// import { <GlobalStyle></GlobalStyle> } from "./Styles/globalStyles";
 import { GlobalStyle } from "../Styles/globalStyles";
 import { useFormik } from "formik";
-// import { signUpSchema } from "../Schema/indexSchema";
-import { 
-  signInWithEmailAndPassword,
-   } from "firebase/auth";
-  import { auth } from "../../Utilities/Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "../Schema/signInSchema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails, setisLogged } from "../../Redux Store/restaurantSlice";
 
 const initialValues = {
-  name: "",
   email: "",
   password: "",
-  confirm_password: "",
 };
+
 const Signin = () => {
-  const[isLoged,setIsLoged]=useState(true)
-  const navigate=useNavigate();
-  // const history=useHistory()
-  const dispatch=useDispatch()
+  const navigate = useNavigate();
+  const userId = useSelector((store) => store?.restaurant?.userId);
+  const dispatch = useDispatch();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: signInSchema,
       onSubmit: async (values, action) => {
-        console.log(
-          "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
-          values
-        );
         try {
-          const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            values.email,
+            values.password
+          );
           const user = userCredential.user;
-          // user.log=isLogged
-          dispatch(setUserDetails(user))
-          dispatch(setisLogged(isLoged))
-          // Update user profile
-          
-          navigate("/")
-          console.log("User profile updated:", user);
+          dispatch(setUserDetails(user));
+          dispatch(setisLogged(true));
+          navigate("/restaurant/" + userId);
           action.resetForm();
         } catch (error) {
-          console.error("Registration failed:", error);
+          console.error("Sign in failed:", error.message);
         }
       },
     });
-  console.log(
-    "🚀 ~ file: Registration.jsx ~ line 25 ~ Registration ~ errors",
-    errors
-  );
+
   return (
     <>
       <GlobalStyle />
@@ -62,11 +50,8 @@ const Signin = () => {
             <div className="modal-container">
               <div className="modal-left">
                 <h1 className="modal-title">Welcome!</h1>
-                <p className="modal-desc">
-                  Sign in with email and password
-                </p>
+                <p className="modal-desc">Sign in with email and password</p>
                 <form onSubmit={handleSubmit}>
-                  
                   <div className="input-block">
                     <label htmlFor="email" className="input-label">
                       Email
@@ -81,9 +66,9 @@ const Signin = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
-                    {errors.email && touched.email ? (
+                    {errors.email && touched.email && (
                       <p className="form-error">{errors.email}</p>
-                    ) : null}
+                    )}
                   </div>
                   <div className="input-block">
                     <label htmlFor="password" className="input-label">
@@ -99,27 +84,22 @@ const Signin = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
-                    {errors.password && touched.password ? (
+                    {errors.password && touched.password && (
                       <p className="form-error">{errors.password}</p>
-                    ) : null}
+                    )}
                   </div>
-                  
                   <div className="modal-buttons">
-                    <a href="#" className="gmail">
-                      Want to register using Gmail?
-                    </a>
                     <button className="input-button" type="submit">
                       Sign in
                     </button>
-                    </div>
+                  </div>
                 </form>
                 <p className="sign-up">
-                  Don't have an account? <Link to={"/login"}>Create an new ac.</Link>
+                  Don't have an account?{" "}
+                  <Link to={"/login"}>Create a new account</Link>
                 </p>
               </div>
-              <div className="modal-right">
-                
-              </div>
+              <div className="modal-right"></div>
             </div>
           </div>
         </div>
@@ -182,9 +162,6 @@ const Wrapper = styled.section`
     opacity: 1;
   }
 
- 
- 
-
   .modal.is-open .modal-left {
     transform: translateY(0);
     opacity: 1;
@@ -199,8 +176,8 @@ const Wrapper = styled.section`
     color: rgba(51, 51, 51, 0.6);
     font-size: 14px;
   }
-  .gmail:hover{
-    color:rgba(114, 69, 69, 0.6)
+  .gmail:hover {
+    color: rgba(114, 69, 69, 0.6);
   }
   .sign-up {
     margin: 60px 0 0;

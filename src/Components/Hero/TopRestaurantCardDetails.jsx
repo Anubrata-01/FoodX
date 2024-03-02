@@ -26,7 +26,7 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
   cardDetails && console.log(cardDetails);
   const FoodAccrodians = useMemo(
     () =>
-      cardDetails?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      cardDetails?.data?.cards[1]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
         (card) =>
           card?.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
