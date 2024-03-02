@@ -6,6 +6,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ isFixed }) => {
   const [fixed, setFixed] = useState("");
@@ -13,18 +14,10 @@ const Navbar = ({ isFixed }) => {
     setFixed(isFixed);
   }, [isFixed]);
 
-  const [isShow, setIsShow] = useState({
-    display: false,
-    text: "Sign in"
-  });
-
-  const handleLoginBtn = () => {
-    setIsShow(prevState => ({
-      ...prevState,
-      display: !prevState.display,
-      text: prevState?.display ? "Sign in" : "Sign out"
-    }));
-  };
+  const isLogged = useSelector((store) => store?.restaurant?.isLogged);
+  const userName = useSelector(
+    (store) => store?.restaurant?.userDetails?.displayName
+  );
 
   return (
     <Container isFixed={fixed}>
@@ -46,9 +39,21 @@ const Navbar = ({ isFixed }) => {
               <FaCartPlus />
               <StyledNavLink to={""}>Cart</StyledNavLink>
             </NavLinks>
-            <NavLinks onClick={handleLoginBtn}>
-              {!isShow?.display ? <FaSignInAlt /> : <FaSignOutAlt />}
-              <StyledNavLink to={"/login"}>{isShow?.text}</StyledNavLink>
+            <NavLinks>
+              {!isLogged ? (
+                <>
+                  <FaSignInAlt />
+                  <StyledNavLink to={"/login"}>Sign In</StyledNavLink>
+                </>
+              ) : (
+                <>
+                  <FaSignOutAlt />
+                  <DisplayName>
+                    <StyledNavLink to={"/login"}>Sign out</StyledNavLink>
+                    {/* <p>{ userName && userName}</p> */}
+                  </DisplayName>
+                </>
+              )}
             </NavLinks>
           </List>
         </Licon>
@@ -123,8 +128,16 @@ const NavLinks = styled.li`
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   align-items: center;
-  line-height: 35px;
+  line-height: 30px;
+  /* margin-top:5px; */
   color: black;
 `;
-
+const DisplayName = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+  /* margin-top: 5px; */
+  /* line-height: 5px; */
+`;
 export default Navbar;
