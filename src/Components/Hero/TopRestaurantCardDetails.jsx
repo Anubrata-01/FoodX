@@ -26,14 +26,15 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
   cardDetails && console.log(cardDetails);
   const FoodAccrodians = useMemo(
     () =>
-      cardDetails?.data?.cards[1]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      cardDetails?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
         (card) =>
           card?.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
       ),
     [cardDetails]
   );
-  console.log(FoodAccrodians);
+  
+  cardDetails && console.log(FoodAccrodians);
   const infoCard = useMemo(
     () =>
       cardDetails?.data?.cards?.find(
@@ -43,10 +44,12 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
       ),
     [cardDetails]
   );
-  console.log(infoCard);
+  // console.log(infoCard);
   if (!infoCard) {
     return <ShimmerEffectForResWithFoodDelivery />;
   }
+  console.log(infoCard);
+
   const {
     name,
     id,
@@ -66,10 +69,9 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
     <Container>
       {isAuthentication && (
         <>
-        <DIv>
-        <Navbar isFixed={"relative"} />
-
-        </DIv>
+          <DIv>
+            <Navbar isFixed={"relative"} />
+          </DIv>
           {/* <Navbar /> */}
           <Div>
             <DetailsContainer>
@@ -115,10 +117,10 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
 };
 
 const Container = styled.div``;
-const DIv=styled.div`
-position: relative;
-overflow-x:hidden
-`
+const DIv = styled.div`
+  position: relative;
+  overflow-x: hidden;
+`;
 const Div = styled.div`
   width: 60%;
   margin-top: 8%;

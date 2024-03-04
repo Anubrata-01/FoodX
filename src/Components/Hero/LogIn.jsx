@@ -6,6 +6,8 @@ import { signUpSchema } from "../Schema/indexSchema";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../Redux Store/restaurantSlice";
 
 const initialValues = {
   name: "",
@@ -15,6 +17,7 @@ const initialValues = {
 };
 const Registration = () => {
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -35,6 +38,7 @@ const Registration = () => {
           await updateProfile(user, {
             displayName: values.name, // Set the display name to the provided name
           });
+          dispatch(setUserDetails(user))
           navigate("/");
           console.log("User profile updated:", user);
           action.resetForm();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {} from "react";
 import styled from "styled-components";
 import { GlobalStyle } from "../Styles/globalStyles";
 import { useFormik } from "formik";
@@ -16,9 +16,12 @@ const initialValues = {
 
 const Signin = () => {
   const navigate = useNavigate();
-  const userId = useSelector((store) => store?.restaurant?.userId);
-  const dispatch = useDispatch();
+  // const[login,setLogin]=useState(false);
 
+  const userId = useSelector((store) => store?.restaurant?.userId);
+  // const userid=localStorage.getItem("userId")
+  const dispatch = useDispatch();
+  
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -31,8 +34,8 @@ const Signin = () => {
             values.password
           );
           const user = userCredential.user;
-          dispatch(setUserDetails(user));
-          dispatch(setisLogged(true));
+          dispatch(setisLogged(true))
+          // setLogin(true)
           navigate("/restaurant/" + userId);
           action.resetForm();
         } catch (error) {
