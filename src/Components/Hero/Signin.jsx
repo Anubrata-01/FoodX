@@ -6,8 +6,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "../Schema/signInSchema";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserDetails, setisLogged } from "../../Redux Store/restaurantSlice";
+import { useDispatch,  } from "react-redux";
+import {  setisLogged } from "../../Redux Store/restaurantSlice";
 
 const initialValues = {
   email: "",
@@ -16,12 +16,7 @@ const initialValues = {
 
 const Signin = () => {
   const navigate = useNavigate();
-  // const[login,setLogin]=useState(false);
-
-  const userId = useSelector((store) => store?.restaurant?.userId);
-  // const userid=localStorage.getItem("userId")
   const dispatch = useDispatch();
-  
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -36,7 +31,7 @@ const Signin = () => {
           const user = userCredential.user;
           dispatch(setisLogged(true))
           // setLogin(true)
-          navigate("/restaurant/" + userId);
+          navigate("/");
           action.resetForm();
         } catch (error) {
           console.error("Sign in failed:", error.message);

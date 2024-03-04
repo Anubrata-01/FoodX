@@ -19,8 +19,8 @@ const MoodItemContainer = ({ user }) => {
     (store) => store?.restaurant?.moodToday
   );
 
-  const detailsArray = MoodItemContainerData?.cards?.slice(0, 3);
-  const cards = MoodItemContainerData?.cards?.slice(3, -1);
+  const detailsArray =React.useMemo(()=>MoodItemContainerData?.cards?.slice(0, 3),[MoodItemContainerData]) ;
+  const cards = React.useMemo(()=>MoodItemContainerData?.cards?.slice(3, -1),[MoodItemContainerData])
   if (!cards) {
     return <ShimmerEffectForResWithFoodDelivery />;
   }

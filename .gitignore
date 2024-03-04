@@ -10,7 +10,11 @@
 
 # production
 /build
-
+Firebase.js
+sum.js
+Login.test.js
+NavBar.test.js
+sum.test.js
 # misc
 .DS_Store
 .env.local

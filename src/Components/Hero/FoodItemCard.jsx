@@ -2,54 +2,45 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { addUserId } from "../../Redux Store/restaurantSlice";
-import {addItemToCart, updateQuantity} from "../../Redux Store/cartSlice"
+import { addItemToCart, updateQuantity } from "../../Redux Store/cartSlice";
 
 const FoodItemCard = ({ info }) => {
-  const[num,setNum]=useState(0);
-  // const[login,setLogin]=useState(false);
-  // const loggedIn=useSelector((store)=>store?.restaurant?.isLogged)
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const {userId}=useParams();
- 
-  const {
-    id,
-    name,
-    imageId,
-    price,
-    description,
-    defaultPrice,
-  } = info && info;
+  const [num, setNum] = useState(0);
+  const dispatch = useDispatch();
+  const { userId } = useParams();
+
+  const { id, name, imageId, price, description, defaultPrice } = info || {};
   const addtoCart = useCallback(() => {
-    
     if (num === 0) {
-      setNum(prevNum => prevNum + 1);
-      dispatch(addItemToCart(info))
-    }
-    else{
-      dispatch(addUserId(userId))
-      navigate("/restaurant/"+userId)
+      setNum((prevNum) => prevNum + 1);
+      dispatch(addItemToCart(info));
+    } else {
+      dispatch(addUserId(userId));
     }
   }, [num]);
 
-  const handleMinus = useCallback((itemId,quantity) => {
-    if (num > 0) {
-      setNum(prevNum => prevNum - 1);
-      dispatch(updateQuantity({itemId,quantity}))
+  const handleMinus = useCallback(
+    (itemId, quantity) => {
+      if (num > 0) {
+        setNum((prevNum) => prevNum - 1);
+        dispatch(updateQuantity({ itemId, quantity }));
+      }
+    },
+    [num]
+  );
 
-    }
-  }, [num]);
-
-  const handlePlus = useCallback((itemId,quantity) => {
-    if (num >= 1) {
-      setNum(prevNum => prevNum + 1);
-      dispatch(updateQuantity({itemId,quantity}))
-
-    }
-  }, [num]);
+  const handlePlus = useCallback(
+    (itemId, quantity) => {
+      if (num >= 1) {
+        setNum((prevNum) => prevNum + 1);
+        dispatch(updateQuantity({ itemId, quantity }));
+      }
+    },
+    [num]
+  );
   return (
     <div>
       <Container>
@@ -70,16 +61,17 @@ const FoodItemCard = ({ info }) => {
           )}
 
           <Button>
-            {
-              !num>0?<Add onClick={addtoCart}>Add</Add>:<Con>
-              <MinusSpan onClick={()=>handleMinus(id,num-1)}>-</MinusSpan>
-              <Quantity>{num}</Quantity>
-              <PlusSpan onClick={()=>handlePlus(id,num+1)}>+</PlusSpan>
-            </Con>
-            }
-            
-            
-
+            {!num > 0 ? (
+              <Add onClick={addtoCart}>Add</Add>
+            ) : (
+              <Con>
+                <MinusSpan onClick={() => handleMinus(id, num - 1)}>
+                  -
+                </MinusSpan>
+                <Quantity>{num}</Quantity>
+                <PlusSpan onClick={() => handlePlus(id, num + 1)}>+</PlusSpan>
+              </Con>
+            )}
           </Button>
         </ImgCon>
       </Container>
@@ -146,23 +138,22 @@ const Button = styled.button`
   background-color: #fff;
   margin-left: 8px;
   cursor: pointer;
-  animation: _1sXH- .2s ease;
-    opacity: 1;
-    transform: translateZ(0);
+  animation: _1sXH- 0.2s ease;
+  opacity: 1;
+  transform: translateZ(0);
 `;
-const Add=styled.p`
-  margin-top:0;
+const Add = styled.p`
+  margin-top: 0;
 `;
-const Con=styled.div`
-margin-left: 7px;
- display: flex;
- gap:22px;
-`
-const PlusSpan=styled.span``;
-const MinusSpan=styled.span`
-animation: _1vozQ .2s ease;
+const Con = styled.div`
+  margin-left: 7px;
+  display: flex;
+  gap: 22px;
 `;
-const Quantity=styled.span``;
-
+const PlusSpan = styled.span``;
+const MinusSpan = styled.span`
+  animation: _1vozQ 0.2s ease;
+`;
+const Quantity = styled.span``;
 
 export default FoodItemCard;

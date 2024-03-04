@@ -53,6 +53,9 @@ const restaurantSlice = createSlice({
       state.userDetails = action.payload;
       // state.isLogged=action.payload;
     },
+    removeUserDetails:(state,action)=>{
+      state.userDetails=[];
+  },
     setisLogged: (state, action) => {
       state.isLogged = action.payload;
       // state.isLogged=action.payload;
@@ -71,6 +74,7 @@ export const {
   addResCardDetails,
   setCurrentRoute,
   setUserDetails,
+  removeUserDetails,
   setisLogged,
   addUserId
 } = restaurantSlice.actions;
