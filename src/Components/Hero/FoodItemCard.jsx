@@ -1,54 +1,53 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserId } from "../../Redux Store/restaurantSlice";
+import {addItemToCart, updateQuantity} from "../../Redux Store/cartSlice"
 
 const FoodItemCard = ({ info }) => {
   const[num,setNum]=useState(0);
-  const[login,setLogin]=useState(false);
-  const loggedIn=useSelector((store)=>store?.restaurant?.isLogged)
+  // const[login,setLogin]=useState(false);
+  // const loggedIn=useSelector((store)=>store?.restaurant?.isLogged)
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const {userId}=useParams();
-  console.log(userId)
-  // useEffect(()=>setLogin(loggedIn),[loggedIn])
+ 
   const {
     id,
     name,
     imageId,
     price,
-    isVeg,
-    ratings,
     description,
     defaultPrice,
   } = info && info;
   const addtoCart = useCallback(() => {
     
-    if (num === 0 && loggedIn ===true) {
+    if (num === 0) {
       setNum(prevNum => prevNum + 1);
-      console.log("ok");
+      dispatch(addItemToCart(info))
     }
     else{
       dispatch(addUserId(userId))
-      navigate("/signin")
+      navigate("/restaurant/"+userId)
     }
-
-    // login?(num===0?(setNum(num+1)):""):(navigate)
   }, [num]);
 
-  const handleMinus = useCallback(() => {
+  const handleMinus = useCallback((itemId,quantity) => {
     if (num > 0) {
       setNum(prevNum => prevNum - 1);
-      console.log("minus")
+      dispatch(updateQuantity({itemId,quantity}))
+
     }
   }, [num]);
 
-  const handlePlus = useCallback(() => {
+  const handlePlus = useCallback((itemId,quantity) => {
     if (num >= 1) {
       setNum(prevNum => prevNum + 1);
+      dispatch(updateQuantity({itemId,quantity}))
+
     }
   }, [num]);
   return (
@@ -73,9 +72,9 @@ const FoodItemCard = ({ info }) => {
           <Button>
             {
               !num>0?<Add onClick={addtoCart}>Add</Add>:<Con>
-              <MinusSpan onClick={handleMinus}>-</MinusSpan>
+              <MinusSpan onClick={()=>handleMinus(id,num-1)}>-</MinusSpan>
               <Quantity>{num}</Quantity>
-              <PlusSpan onClick={handlePlus}>+</PlusSpan>
+              <PlusSpan onClick={()=>handlePlus(id,num+1)}>+</PlusSpan>
             </Con>
             }
             
