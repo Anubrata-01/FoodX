@@ -6,21 +6,44 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch,} from "react-redux";
+import { auth } from "../../Utilities/Firebase";
+import { useNavigate } from "react-router-dom";
+import { removeUserDetails, setUserDetails, setisLogged } from "../../Redux Store/restaurantSlice";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = ({ isFixed }) => {
-  const [fixed, setFixed] = useState("");
+  const [sign, setSign] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
-    setFixed(isFixed);
-  }, [isFixed]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { email, uid, displayName } = user;
+        dispatch(setUserDetails({ email: email, uid: uid, displayName: displayName }));
+        setSign(false);
+      } else {
+        dispatch(removeUserDetails());
+        setSign(true); 
+      }
+    });
 
-  const isLogged = useSelector((store) => store?.restaurant?.isLogged);
-  const userName = useSelector(
-    (store) => store?.restaurant?.userDetails?.displayName
-  );
+    return () => unsubscribe(); 
+  }, [dispatch]); 
+
+  const handleSignOut = () => {
+    auth.signOut()
+      .then(() => {
+        dispatch(setisLogged(false));
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Sign out error:", error);
+      });
+  };
 
   return (
-    <Container isFixed={fixed}>
+    <Container>
       <NavBar>
         <LogoContainer>
           {Logo} <LogoName>FoodX</LogoName>
@@ -29,7 +52,7 @@ const Navbar = ({ isFixed }) => {
           <List>
             <NavLinks>
               <FaHome />
-              <StyledNavLink to={"/home"}>Home</StyledNavLink>
+              <StyledNavLink to={"/"}>Home</StyledNavLink>
             </NavLinks>
             <NavLinks>
               <BiSolidOffer />
@@ -37,20 +60,19 @@ const Navbar = ({ isFixed }) => {
             </NavLinks>
             <NavLinks>
               <FaCartPlus />
-              <StyledNavLink to={""}>Cart</StyledNavLink>
+              <StyledNavLink to={"/cart"}>Cart</StyledNavLink>
             </NavLinks>
             <NavLinks>
-              {!isLogged ? (
+              {sign ? (
                 <>
                   <FaSignInAlt />
-                  <StyledNavLink to={"/login"}>Sign In</StyledNavLink>
+                  <StyledNavLink to={"/signin"}>Sign In</StyledNavLink>
                 </>
               ) : (
                 <>
                   <FaSignOutAlt />
                   <DisplayName>
-                    <StyledNavLink to={"/login"}>Sign out</StyledNavLink>
-                    {/* <p>{ userName && userName}</p> */}
+                    <StyledNavLink onClick={handleSignOut}>Sign out</StyledNavLink>
                   </DisplayName>
                 </>
               )}
@@ -61,6 +83,8 @@ const Navbar = ({ isFixed }) => {
     </Container>
   );
 };
+
+// export default Navbar;
 
 const Container = styled.div`
   margin-top: -7px;
