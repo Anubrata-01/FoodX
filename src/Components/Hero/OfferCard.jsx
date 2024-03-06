@@ -40,7 +40,7 @@ const Offer = styled.p`
   font-family: ProximaNovaCondensedBold, arial, Helvetica Neue, sans-serif;
 `;
 const CouponCon = styled.div`
-  margin-top: -10px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   gap: 5px;

@@ -6,13 +6,19 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useDispatch,} from "react-redux";
+import { useDispatch } from "react-redux";
 import { auth } from "../../Utilities/Firebase";
 import { useNavigate } from "react-router-dom";
-import { removeUserDetails, setUserDetails, setisLogged } from "../../Redux Store/restaurantSlice";
+import {
+  removeUserDetails,
+  setUserDetails,
+  setisLogged,
+} from "../../Redux Store/restaurantSlice";
 import { onAuthStateChanged } from "firebase/auth";
+// import Toast from "../../Utilities/Toast";
+import { useToast } from "@chakra-ui/react";
 
-const Navbar = ({ isFixed }) => {
+const Navbar = () => {
   const [sign, setSign] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,22 +26,32 @@ const Navbar = ({ isFixed }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { email, uid, displayName } = user;
-        dispatch(setUserDetails({ email: email, uid: uid, displayName: displayName }));
+        dispatch(
+          setUserDetails({ email: email, uid: uid, displayName: displayName })
+        );
         setSign(false);
       } else {
         dispatch(removeUserDetails());
-        setSign(true); 
+        setSign(true);
       }
     });
 
-    return () => unsubscribe(); 
-  }, [dispatch]); 
-
+    return () => unsubscribe();
+  }, [dispatch]);
+  const toast = useToast();
   const handleSignOut = () => {
-    auth.signOut()
+    auth
+      .signOut()
       .then(() => {
         dispatch(setisLogged(false));
         navigate("/");
+        toast({
+          title: "Account created.",
+          description: "We've created your account for you.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.error("Sign out error:", error);
@@ -72,7 +88,9 @@ const Navbar = ({ isFixed }) => {
                 <>
                   <FaSignOutAlt />
                   <DisplayName>
-                    <StyledNavLink onClick={handleSignOut}>Sign out</StyledNavLink>
+                    <StyledNavLink onClick={handleSignOut}>
+                      Sign out
+                    </StyledNavLink>
                   </DisplayName>
                 </>
               )}
@@ -87,7 +105,7 @@ const Navbar = ({ isFixed }) => {
 // export default Navbar;
 
 const Container = styled.div`
-  margin-top: -7px;
+  margin-top: 0;
   width: 1200px;
   position: fixed;
   z-index: 999;
@@ -99,6 +117,7 @@ const Container = styled.div`
 const NavBar = styled.nav`
   width: 80%;
   margin-left: 8%;
+  margin-top: 1%;
   border: "1px solid black";
   display: flex;
   justify-content: space-between;
@@ -113,6 +132,7 @@ const LogoContainer = styled.div`
 
 const LogoName = styled.span`
   color: red;
+  text-align: center;
 `;
 
 const Licon = styled.div`

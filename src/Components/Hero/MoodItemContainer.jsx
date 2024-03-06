@@ -62,7 +62,7 @@ const Title = styled.p`
   font-weight: 600;
 `;
 const Title1 = styled.p`
-  margin-top: -10px;
+  margin-top: 0px;
   font-size: 1.3rem;
   font-weight: 600;
 `;
@@ -70,12 +70,12 @@ const Title1 = styled.p`
 const Description = styled.p`
   font-size: 1rem;
   opacity: 0.6;
-  margin-top: -28px;
+  margin-top: 8px;
   max-width: 800px;
 `;
 
 const FilterArea = styled.div`
-  margin-top: -7px;
+  margin-top: 7px;
   width: 45%;
   cursor: pointer;
   background-color: rgb(255, 255, 255);

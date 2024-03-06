@@ -9,7 +9,7 @@ import LineBar from "../../Utilities/LineBar";
 import OffersSection from "./OffersSection";
 import FoodAccordian from "./FoodAccordian";
 
-const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
+const TopRestaurantCardDetails = ({sign, Navbar }) => {
   const { userId } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -67,11 +67,10 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
 
   return (
     <Container>
-      {isAuthentication && (
-        <>
-          <DIv>
-            <Navbar isFixed={"relative"} />
-          </DIv>
+        {/* <> */}
+          {/* <DIv>
+            <Navbar/>
+          </DIv> */}
           {/* <Navbar /> */}
           <Div>
             <DetailsContainer>
@@ -110,8 +109,8 @@ const TopRestaurantCardDetails = ({ Navbar, isAuthentication }) => {
                 ))}
             </div>
           </Div>
-        </>
-      )}
+        {/* </> */}
+      
     </Container>
   );
 };
@@ -209,7 +208,8 @@ const Span = styled.span`
 `;
 const OfeerSectionCon = styled.div`
   /* overflow-x:scroll; */
-  margin-bottom: 4%;
+  margin-top: 10px;
+  margin-bottom: 2%;
   /* width: 100%; */
 `;
 export default React.memo(TopRestaurantCardDetails);

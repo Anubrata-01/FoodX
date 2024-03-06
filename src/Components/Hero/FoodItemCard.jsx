@@ -4,6 +4,8 @@ import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { db } from "../../Utilities/Firebase";
+import { collection,addDoc } from "firebase/firestore";
 import { addUserId } from "../../Redux Store/restaurantSlice";
 import { addItemToCart, updateQuantity } from "../../Redux Store/cartSlice";
 
@@ -14,9 +16,13 @@ const FoodItemCard = ({ info }) => {
 
   const { id, name, imageId, price, description, defaultPrice } = info || {};
   const addtoCart = useCallback(() => {
-    if (num === 0) {
+    if (num >= 0) {
       setNum((prevNum) => prevNum + 1);
       dispatch(addItemToCart(info));
+      const dataRef=addDoc(collection(db,"userId"),{
+        id:userId
+      })
+      console.log(dataRef)
     } else {
       dispatch(addUserId(userId));
     }

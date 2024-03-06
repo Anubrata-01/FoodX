@@ -56,6 +56,7 @@ const Cost=styled.p`
 `
 const OfferCardContainer=styled.div`
 width: 100%;
+margin-top: 1%;
 overflow-x: scroll;
 display: flex;
 gap:5px;

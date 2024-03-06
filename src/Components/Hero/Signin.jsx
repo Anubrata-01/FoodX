@@ -1,4 +1,4 @@
-import React, {} from "react";
+import React from "react";
 import styled from "styled-components";
 import { GlobalStyle } from "../Styles/globalStyles";
 import { useFormik } from "formik";
@@ -6,17 +6,21 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "../Schema/signInSchema";
-import { useDispatch,  } from "react-redux";
-import {  setisLogged } from "../../Redux Store/restaurantSlice";
+import { useDispatch } from "react-redux";
+import { setisLogged } from "../../Redux Store/restaurantSlice";
+import { useToast } from "@chakra-ui/react";
+// import Toast from "../../Utilities/Toast";
 
 const initialValues = {
   email: "",
   password: "",
 };
+// const toast=useToast()
 
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -29,8 +33,14 @@ const Signin = () => {
             values.password
           );
           const user = userCredential.user;
-          dispatch(setisLogged(true))
-          // setLogin(true)
+          dispatch(setisLogged(true));
+          toast({
+            title: "Account created.",
+            description: "We've created your account for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
           navigate("/");
           action.resetForm();
         } catch (error) {

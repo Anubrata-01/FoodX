@@ -98,7 +98,8 @@ const ItemCon = styled.div`
   overflow-x: scroll;
   scroll-behavior: smooth;
   display: flex;
-  gap: 18px;
+  /* justify-content: space-between; */
+  /* gap: -8px; */
 
   &::-webkit-scrollbar {
     display: none;
@@ -106,11 +107,13 @@ const ItemCon = styled.div`
 `;
 
 const Img = styled.img`
-  width: 124px;
+  width: 164px;
   height: 160px;
 `;
 
 const Item = styled.div`
+width: 120px;
+  height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: center;

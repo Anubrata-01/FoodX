@@ -44,6 +44,7 @@ export const withPromoted = (RestaurantCard) => {
 };
 const Container = styled.div`
   margin: 0px;
+  margin-top: 10px;
   -webkit-font-smoothing: antialiased;
   font-family: Basis_Grotesque_Pro_Bold;
   font-weight: 700;
@@ -69,16 +70,20 @@ const Img = styled.img`
 `;
 const Delcon = styled.div`
   margin-left: 5px;
+  margin-top: 10px;
   width: 120px;
   display: flex;
   justify-content: space-between;
 `;
 const Name = styled.div`
   margin-top: 8px;
+  /* margin-bottom: 5px; */
   margin-left: 5px;
 `;
 const Cuisine = styled.div`
   display: flex;
+  margin-top: 10px;
+
 `;
 const CuisineItem = styled.p`
   margin-left: 5px;
@@ -93,6 +98,7 @@ const CuisineItem = styled.p`
 
 const Address = styled.div`
   margin-left: 5px;
+  margin-top: 5px;
 `;
 const AreaName = styled.p`
   margin-top: -5px;
