@@ -52,12 +52,12 @@ const Signin = () => {
   return (
     <>
       <GlobalStyle />
-      <Wrapper>
+      <Wrapper className="  bg-slate-50">
         <div className="container">
           <div className="modal">
             <div className="modal-container">
               <div className="modal-left">
-                <h1 className="modal-title">Welcome!</h1>
+                <h1 className=" text-red-700">Welcome!</h1>
                 <p className="modal-desc">Sign in with email and password</p>
                 <form onSubmit={handleSubmit}>
                   <div className="input-block">
@@ -120,7 +120,7 @@ const Wrapper = styled.section`
   .container {
     position: fixed;
     top: 0;
-    left: 5rem;
+    left: 10rem;
     right: 0;
     bottom: 0;
     background-color: #efedee;
@@ -141,7 +141,7 @@ const Wrapper = styled.section`
   }
   .modal-container {
     display: flex;
-    max-width: 40vw;
+    max-width: 30vw;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -163,7 +163,7 @@ const Wrapper = styled.section`
     margin: 6px 0 30px 0;
   }
   .modal-left {
-    padding: 60px 30px 20px;
+    padding: 6px 30px 20px;
     background: #fff;
     flex: 1.5;
     transition-duration: 0.5s;
@@ -196,7 +196,7 @@ const Wrapper = styled.section`
     color: #8c7569;
   }
   .input-button {
-    padding: 1.2rem 3.2rem;
+    padding: 1rem 3rem;
     outline: none;
     text-transform: uppercase;
     border: 0;

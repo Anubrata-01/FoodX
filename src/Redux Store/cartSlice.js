@@ -19,7 +19,6 @@ const cartSlice = createSlice({
       } else {
         state.cartStore.push({ ...action.payload, cartQuantity: 1 });
 
-        // state.cartQuantity=1
       }
       state.cartQuantity += 1;
       state.cartValue += calculateItemValue(action.payload);
@@ -31,12 +30,8 @@ const cartSlice = createSlice({
       const existingItem = state.cartStore.find((item) => item?.id === itemId);
 
       if (existingItem) {
-        // Calculate the difference between the new quantity and the existing quantity
         const quantityDifference = quantity - existingItem.cartQuantity;
-
-        // Update the quantity of the existing item in the cart
         existingItem.cartQuantity = quantity;
-        // Update the total cart quantity
         state.cartQuantity += quantityDifference;
         state.cartValue +=
           quantityDifference * calculateItemValue(existingItem);
@@ -54,10 +49,21 @@ const cartSlice = createSlice({
         }
       }
     },
+    removeItem: (state, action) => {
+      const itemIdToRemove= action.payload;
+      const removedItem = state.cartStore.find(item => item.id === itemIdToRemove);
+      if (removedItem) {
+        state.cartQuantity -= removedItem.cartQuantity;
+        state.cartValue -= removedItem.cartQuantity * calculateItemValue(removedItem);
+      state.cartStore = state.cartStore.filter(item => item.id !== itemIdToRemove);
+
+      }
+    }
+    
   },
 });
 const calculateItemValue = (item) => {
   return item?.price !== undefined ? item?.price : item?.defaultPrice;
 };
-export const { addItemToCart, updateQuantity } = cartSlice.actions;
+export const { addItemToCart, updateQuantity,removeItem } = cartSlice.actions;
 export default cartSlice.reducer;

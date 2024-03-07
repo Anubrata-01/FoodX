@@ -46,7 +46,7 @@ function App() {
       path: "/restaurant/:userId",
       element: (
         <Suspense fallback={""}>
-          <LazyTopResCardDetails/>
+          <LazyTopResCardDetails Navbar={Navbar}/>
         </Suspense>
       ),
     },

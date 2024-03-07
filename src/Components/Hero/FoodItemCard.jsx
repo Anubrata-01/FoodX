@@ -98,14 +98,14 @@ const DetialsCon = styled.div`
 const Name = styled.p`
   margin-right: 4px;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #383a46;
   word-break: break-word;
 `;
 const Price = styled.h3`
   font-size: 0.8rem;
   font-weight: 600;
-  margin-top: -5px;
+  margin-top: -3px;
 `;
 const Description = styled.p`
   line-height: 1.3;
@@ -152,7 +152,7 @@ const Add = styled.p`
   margin-top: 0;
 `;
 const Con = styled.div`
-  margin-left: 7px;
+  margin-left: 13px;
   display: flex;
   gap: 22px;
 `;

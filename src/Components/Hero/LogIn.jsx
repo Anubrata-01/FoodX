@@ -162,7 +162,10 @@ const Wrapper = styled.section`
     left: 5rem;
     right: 0;
     bottom: 0;
+    /* background-color: #fff;
+     */
     background-color: #efedee;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,7 +173,7 @@ const Wrapper = styled.section`
   .modal {
     width: 30%;
     /* height: 60px; */
-    margin-top: -6rem;
+    /* margin-top: -56rem; */
     background: rgba(51, 51, 51, 0.5);
     display: flex;
     flex-direction: column;
@@ -180,7 +183,8 @@ const Wrapper = styled.section`
   }
   .modal-container {
     display: flex;
-    max-width: 40vw;
+    max-width: 30vw;
+    /* max-height:90vh; */
     width: 70%;
     border-radius: 10px;
     overflow: hidden;
@@ -189,7 +193,7 @@ const Wrapper = styled.section`
     background: #fff;
   }
   .modal-title {
-    margin: 0;
+    margin-top:-1rem;
     font-weight: 400;
     color: #55311c;
   }
@@ -258,7 +262,7 @@ const Wrapper = styled.section`
   .input-block {
     display: flex;
     flex-direction: column;
-    padding: 5px 5px 8px;
+    padding: 2px 2px 2px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 15px;

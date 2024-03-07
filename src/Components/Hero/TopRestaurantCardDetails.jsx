@@ -71,7 +71,7 @@ const TopRestaurantCardDetails = ({sign, Navbar }) => {
           {/* <DIv>
             <Navbar/>
           </DIv> */}
-          {/* <Navbar /> */}
+          <Navbar/>
           <Div>
             <DetailsContainer>
               <SubCon>
@@ -197,7 +197,7 @@ const Ratings = styled.p`
   border-bottom: 1px solid #e9e9eb;
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: -1px;
   display: block;
 `;
 const Span = styled.span`

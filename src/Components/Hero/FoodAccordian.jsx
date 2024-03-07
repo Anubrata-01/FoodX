@@ -39,12 +39,13 @@ const Container = styled.div`
   /* cursor: pointer; */
 `;
 const Title = styled.p`
-  font-weight: 900;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
 `;
 const Span = styled.span`
   margin-right: 4%;
+  margin-top: 4px;
 `;
 export default FoodAccordian;
