@@ -34,6 +34,7 @@ const TopRestaurant = () => {
       resCardContainerRef.current.scrollLeft -= 360;
       resCardContainerRef.current.scrollTo({
         behavior: "smooth",
+        
       });
     }
   };
@@ -53,10 +54,10 @@ const TopRestaurant = () => {
       <Title>{headerTitle}</Title>
       <ScrollButtons>
         <ScrollButton onClick={handleScrollLeft}>
-          <FcLeft />
+          <FcLeft/>
         </ScrollButton>
         <ScrollButton onClick={handleScrollRight}>
-          <FcRight />
+          <FcRight/>
         </ScrollButton>
       </ScrollButtons>
       <ResCardContainer ref={resCardContainerRef}>
@@ -102,10 +103,8 @@ const ResCardContainer = styled.div`
 const ResCon = styled.div`
   display: flex;
   gap: 8px;
-  /* overflow-x: scroll; */
-
   justify-content: space-between;
-  transition: transform 0.3s ease-in-out;
+  transition: transform .3s ease-in-out;
 `;
 
 const ScrollButtons = styled.div`

@@ -8,6 +8,7 @@ import { auth } from "../../Utilities/Firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../Redux Store/restaurantSlice";
+import { useToast } from "@chakra-ui/react";
 
 const initialValues = {
   name: "",
@@ -18,6 +19,7 @@ const initialValues = {
 const Registration = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch()
+  const toast=useToast()
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -34,6 +36,13 @@ const Registration = () => {
             values.password
           );
           const user = userCredential.user;
+          toast({
+            title: "Account created",
+            description: "Your account is created..",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
           // Update user profile
           await updateProfile(user, {
             displayName: values.name, // Set the display name to the provided name

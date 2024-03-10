@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import OfferCard from './OfferCard';
-import LineBar from '../../Utilities/LineBar';
+// import LineBar from '../../Utilities/LineBar';
 
 const OffersSection = ({cost,time}) => {
   const cardDetails = useSelector((store) => store?.restaurant?.resCardDetails);
@@ -27,9 +27,7 @@ Offers && console.log(Offers)
             <OfferCardContainer>{
                 Offers && Offers.card?.card?.gridElements?.infoWithStyle?.offers?.map((item)=>(
                     <OfferCard offerDetails={item}/>
-                ))
-
-                
+                ))               
                 }
                 
             </OfferCardContainer>

@@ -35,7 +35,7 @@ export const CartSection = ({ Navbar }) => {
 
   const handlePlus = useCallback(
     (itemId, quantity) => {
-      if (quantity >= 1) {
+      if (quantity) {
         dispatch(updateQuantity({ itemId, quantity }));
       }
     },
@@ -44,8 +44,11 @@ export const CartSection = ({ Navbar }) => {
 
   const handleMinus = useCallback(
     (itemId, quantity) => {
-      if (quantity > 1) {
+      if (quantity) {
         dispatch(updateQuantity({ itemId, quantity }));
+      }
+      else{
+        dispatch(removeItem(itemId))
       }
     },
     []

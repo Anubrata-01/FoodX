@@ -6,7 +6,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../Utilities/Firebase";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,8 +20,12 @@ import { useToast } from "@chakra-ui/react";
 
 const Navbar = () => {
   const [sign, setSign] = useState(true);
+  const [displayDiv, setDisplayDiv] = useState("hidden");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const quantity = useSelector((store) => store?.cart?.cartQuantity);
+  const userDetail = useSelector((store) => store?.restaurant?.userDetails);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -46,8 +50,8 @@ const Navbar = () => {
         dispatch(setisLogged(false));
         navigate("/");
         toast({
-          title: "Account created.",
-          description: "We've created your account for you.",
+          title: "Signout",
+          description: "You are logged out from your account.",
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -76,6 +80,7 @@ const Navbar = () => {
             </NavLinks>
             <NavLinks>
               <FaCartPlus />
+              <Span>{quantity && quantity}</Span>
               <StyledNavLink to={"/cart"}>Cart</StyledNavLink>
             </NavLinks>
             <NavLinks>
@@ -86,12 +91,38 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <FaSignOutAlt />
-                  <DisplayName>
-                    <StyledNavLink onClick={handleSignOut}>
+                  {/* <FaSignOutAlt />
+                  <DisplayName onMouseEnter={()=>setDisplayDiv(true)} >
+                    <Name> {userDetail.displayName && userDetail?.displayName}</Name>
+                    <Div>
+                    <StyledNavLink className=" text-sm -ml-3 -mt-3">Profile</StyledNavLink>
+                    <StyledNavLink className=" text-sm -ml-3 " onClick={handleSignOut}>
                       Sign out
                     </StyledNavLink>
-                  </DisplayName>
+                    <H3></H3>
+                  </Div>
+                  </DisplayName> */}
+                  <>
+                    <FaSignOutAlt /> {/* Render the SignOut icon */}
+                    <DisplayName>
+                     
+                        <Name>
+                          {userDetail.displayName && userDetail.displayName}
+                        </Name>
+                    <Div>
+                        <StyledNavLink className="text-sm">
+                          Profile
+                        </StyledNavLink>
+                        <StyledNavLink
+                          className="text-sm"
+                          onClick={handleSignOut}
+                        >
+                          Sign out
+                        </StyledNavLink>
+                        <H3 />
+                      </Div>
+                      </DisplayName>
+                  </>
                 </>
               )}
             </NavLinks>
@@ -116,7 +147,7 @@ const Container = styled.div`
 
 const NavBar = styled.nav`
   width: 80%;
-  margin-left: 8%;
+  margin-left: 7%;
   margin-top: 1%;
   border: "1px solid black";
   display: flex;
@@ -156,6 +187,7 @@ const NavLinks = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   gap: 10px;
   color: #3d4152;
   font-size: 16px;
@@ -167,6 +199,11 @@ const NavLinks = styled.li`
   @media screen and (max-width: 640px) {
     gap: 1px;
   }
+`;
+const Span = styled.span`
+  position: absolute;
+  top: -7px;
+  left: 13px;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -181,7 +218,72 @@ const DisplayName = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   text-align: center;
+  position: relative;
+
   /* margin-top: 5px; */
   /* line-height: 5px; */
 `;
+const Name = styled.p``;
+const Div = styled.div`
+  visibility:hidden;
+  /* display: none; */
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  z-index: 1;
+  top: 150%;
+  border-radius: 2px;
+  padding: 26px 30px;
+  position: absolute;
+  background-color: #fff;
+  border-top: 2px solid #fc8019;
+  box-shadow: 0 2px 20px 0 #93959f;
+  ${DisplayName}:hover & {
+    /* display: flex; */
+    visibility: visible;
+  }
+`;
+const H3 = styled.h3`
+  z-index: 2;
+  content: "";
+  position: relative;
+  width: 11px;
+  height: 11px;
+  bottom: 81px;
+  left: 48%;
+  box-shadow: -3px -4px 9px -4px rgba(40, 44, 63, 0.5);
+  background-color: #fff;
+  border: 2px solid #fc8019;
+  border-right: none;
+  border-bottom: none;
+  -ms-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
+`;
+const TooltipText = styled.span`
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+`;
+
+const TooltipTrigger = styled.span`
+  position: relative;
+  cursor: pointer;
+
+  &:hover + ${TooltipText} {
+    visibility: visible;
+  }
+`;
+
 export default Navbar;
