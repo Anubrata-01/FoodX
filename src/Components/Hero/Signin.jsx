@@ -35,8 +35,8 @@ const Signin = () => {
           const user = userCredential.user;
           dispatch(setisLogged(true));
           toast({
-            title: "Account created.",
-            description: "We've created your account for you.",
+            title: "Login",
+            description: "You are Logged into your ac..",
             status: "success",
             duration: 9000,
             isClosable: true,

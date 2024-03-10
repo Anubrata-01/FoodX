@@ -4,8 +4,11 @@ import styled from "styled-components";
 const OfferCard = ({offerDetails}) => {
     const{header,
         couponCode,description
-
-        }=offerDetails?.info
+        }=offerDetails?.info || {};
+        const handleCopy = () => {
+          navigator.clipboard.writeText(couponCode);
+          alert("Coupon code copied to clipboard!");
+        };
   return (
     <Container>
       <OfferCon>
@@ -13,7 +16,9 @@ const OfferCard = ({offerDetails}) => {
       </OfferCon>
       <CouponCon>
         <CuoponDesCription>{couponCode} |</CuoponDesCription>
-        <CuoponDesCription>{description}</CuoponDesCription>
+        <CuoponDesCription>{description} |</CuoponDesCription>
+        <CuoponDesCription onClick={handleCopy}>Copy</CuoponDesCription>
+
       </CouponCon>
     </Container>
   );
@@ -27,6 +32,7 @@ const Container = styled.div`
   border-radius: 8px;
   /* padding: 8px; */
   /* height: 100%; */
+  cursor: pointer;
   min-width: 200px;
   max-height: 60px;
   align-items: center;
