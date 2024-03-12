@@ -52,7 +52,7 @@ const Signin = () => {
   return (
     <>
       <GlobalStyle />
-      <Wrapper className="  bg-slate-50">
+      <Wrapper className=" bg-slate-50">
         <div className="container">
           <div className="modal">
             <div className="modal-container">
@@ -117,6 +117,7 @@ const Signin = () => {
 };
 
 const Wrapper = styled.section`
+ 
   .container {
     position: fixed;
     top: 0;
@@ -124,6 +125,7 @@ const Wrapper = styled.section`
     right: 0;
     bottom: 0;
     background-color: #efedee;
+    /* background-image: linear-gradient(135deg, rgba(234, 234, 234,0.06) 0%, rgba(234, 234, 234,0.06) 50%,rgba(169, 169, 169,0.06) 50%, rgba(169, 169, 169,0.06) 100%),linear-gradient(90deg, rgb(20,20,20),rgb(20,20,20)); background-size: 72px 72px; */
     display: flex;
     justify-content: center;
     align-items: center;

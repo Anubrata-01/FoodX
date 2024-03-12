@@ -1,5 +1,5 @@
 import React from "react";
-import { CDN_url} from "../../constant";
+import { CDN_url, icon} from "../../constant";
 import styled from "styled-components";
 
 const RestaurantCard = ({ item }) => {
@@ -8,14 +8,15 @@ const RestaurantCard = ({ item }) => {
   const filterdCuisine =React.useMemo(()=>cuisines?.slice(0, 2) || [],[cuisines]) ;
   return (
     <Container>
-      <div>
+      <ImgBox>
         <Img src={`${CDN_url}${cloudinaryImageId}`} alt="" />
-      </div>
+      </ImgBox>
 
       <div>
         <Name>{name}</Name>
         <Delcon>
-          <p>{avgRating} star</p>
+          <Rating>{icon}{avgRating} </Rating>
+          {/* <p>"."</p> */}
           <p>{deliveryTime} mins</p>
         </Delcon>
         <Cuisine>
@@ -61,6 +62,15 @@ const Container = styled.div`
   }
   transition: all 0.05s ease 0s;
 `;
+const ImgBox=styled.div`
+  width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    object-position: center;
+    position: relative;
+    overflow: hidden;
+`
 const Img = styled.img`
   width: 100%;
   height: 100%;
@@ -70,13 +80,22 @@ const Img = styled.img`
 `;
 const Delcon = styled.div`
   margin-left: 5px;
-  margin-top: 10px;
+  margin-top: 8px;
   width: 120px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap:10px
+  /* justify-content: space-between; */
 `;
+const Rating=styled.p`
+display: flex;
+align-items: center;
+gap:3px;
+`
 const Name = styled.div`
   margin-top: 8px;
+  word-break:break-all;
+  line-height: 18px;
   /* margin-bottom: 5px; */
   margin-left: 5px;
 `;

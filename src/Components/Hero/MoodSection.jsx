@@ -24,31 +24,11 @@ const Placeholder = styled.div`
 
 const MoodSection = () => {
   useFetchApi(foodApi);
-  const [isLoading, setIsLoading] = useState(true);
   const Data = useSelector(store => store?.restaurant?.restaurantAPi);
   const filterData =React.useMemo(()=> Data?.data?.cards?.filter((item) => item?.card?.card?.header?.title === "What's on your mind?"),[Data]);
   const headerTitle = React.useMemo(() => filterData?.[0]?.card?.card?.header?.title || '', [filterData]);
   const info = React.useMemo(() => filterData?.[0]?.card?.card?.gridElements?.infoWithStyle?.info || '', [filterData]);
 
-  // useEffect(() => {
-  //   if (Data) {
-  //     setIsLoading(false);
-  //   }
-  // }, [Data]);
-
-  // if (isLoading) {
-  //   return (
-  //     <Container>
-  //       <Title><Placeholder style={{ width: '150px', height: '28px' }} /></Title>
-  //       <ItemCon>
-  //         {[...Array(5)].map((_, index) => (
-  //           <Item key={index}><Placeholder style={{ width: '124px', height: '160px' }} /></Item>
-  //         ))}
-  //       </ItemCon>
-  //       <LineBar />
-  //     </Container>
-  //   );
-  // }
 
   if (!info) {
     return null;

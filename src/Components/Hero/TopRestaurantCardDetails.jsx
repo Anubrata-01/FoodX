@@ -9,7 +9,7 @@ import LineBar from "../../Utilities/LineBar";
 import OffersSection from "./OffersSection";
 import FoodAccordian from "./FoodAccordian";
 
-const TopRestaurantCardDetails = ({sign, Navbar }) => {
+const TopRestaurantCardDetails = ({ sign, Navbar }) => {
   const { userId } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const TopRestaurantCardDetails = ({sign, Navbar }) => {
   }, [dispatch, location.pathname]);
   const url = useMemo(
     () =>
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.4714457&lng=88.3844319&restaurantId=${userId}&catalog_qa=undefined&submitAction=ENTER`,
+      `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D22.4714457%26lng%3D88.3844319%26restaurantId%3D${userId}%26catalog_qa%3Dundefined%26submitAction%3DENTER`,
     [userId]
   );
   useFetchTopResCardDetails(url);
@@ -33,7 +33,7 @@ const TopRestaurantCardDetails = ({sign, Navbar }) => {
       ),
     [cardDetails]
   );
-  
+
   cardDetails && console.log(FoodAccrodians);
   const infoCard = useMemo(
     () =>
@@ -52,65 +52,56 @@ const TopRestaurantCardDetails = ({sign, Navbar }) => {
 
   const {
     name,
-    id,
     cuisines,
-    city,
-    costForTwo,
     costForTwoMessage,
     areaName,
     avgRating,
     sla,
-    totalRatings,
     totalRatingsString,
     feeDetails,
   } = infoCard?.card?.card?.info;
 
   return (
     <Container>
-        {/* <> */}
-          {/* <DIv>
-            <Navbar/>
-          </DIv> */}
-          <Navbar/>
-          <Div>
-            <DetailsContainer>
-              <SubCon>
-                {/* <Title>{name}</Title> */}
-                <SubTitle>{name}</SubTitle>
-                <Cuisine>{cuisines && cuisines?.slice(0, 1)}</Cuisine>
-                <AreaCon>
-                  <Area>{areaName}</Area>
-                  <Distance>{sla && sla?.lastMileTravelString}</Distance>
-                </AreaCon>
-                <DelivaryDetailsCon>
-                  <DelivaryFee>{feeDetails && feeDetails.message}</DelivaryFee>
-                </DelivaryDetailsCon>
-              </SubCon>
-              <RatingCon>
-                <Ratings>{avgRating}</Ratings>
-                <Span>{totalRatingsString}</Span>
-              </RatingCon>
-            </DetailsContainer>
-            <LineBar />
+      <Navbar />
+      <Div>
+        <DetailsContainer>
+          <SubCon>
+            {/* <Title>{name}</Title> */}
+            <SubTitle>{name}</SubTitle>
+            <Cuisine>{cuisines && cuisines?.slice(0, 1)}</Cuisine>
+            <AreaCon>
+              <Area>{areaName}</Area>
+              <Distance>{sla && sla?.lastMileTravelString}</Distance>
+            </AreaCon>
+            <DelivaryDetailsCon>
+              <DelivaryFee>{feeDetails && feeDetails.message}</DelivaryFee>
+            </DelivaryDetailsCon>
+          </SubCon>
+          <RatingCon>
+            <Ratings>{avgRating}</Ratings>
+            <Span>{totalRatingsString}</Span>
+          </RatingCon>
+        </DetailsContainer>
+        <LineBar />
 
-            <OfeerSectionCon>
-              <OffersSection cost={costForTwoMessage} time={sla} />
-            </OfeerSectionCon>
-            <LineBar />
-            <div>
-              {FoodAccrodians &&
-                FoodAccrodians.map((item, index) => (
-                  <div key={index}>
-                    <FoodAccordian
-                      foodItems={item?.card?.card?.itemCards}
-                      title={item?.card?.card?.title}
-                    />
-                  </div>
-                ))}
-            </div>
-          </Div>
-        {/* </> */}
-      
+        <OfeerSectionCon>
+          <OffersSection cost={costForTwoMessage} time={sla} />
+        </OfeerSectionCon>
+        <LineBar />
+        <div>
+          {FoodAccrodians &&
+            FoodAccrodians.map((item, index) => (
+              <div key={index}>
+                <FoodAccordian
+                  foodItems={item?.card?.card?.itemCards}
+                  title={item?.card?.card?.title}
+                />
+              </div>
+            ))}
+        </div>
+      </Div>
+      {/* </> */}
     </Container>
   );
 };

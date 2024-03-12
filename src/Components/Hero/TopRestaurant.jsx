@@ -32,16 +32,13 @@ const TopRestaurant = () => {
   const handleScrollLeft = () => {
     if (resCardContainerRef.current) {
       resCardContainerRef.current.scrollLeft -= 360;
-      resCardContainerRef.current.scrollTo({
-        behavior: "smooth",
-        
-      });
+     
     }
   };
 
   const handleScrollRight = () => {
     if (resCardContainerRef.current) {
-      resCardContainerRef.current.scrollLeft += 360;
+      resCardContainerRef.current.scrollLeft += 360 ;
     }
   };
 
@@ -98,6 +95,8 @@ const ResCardContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  scroll-behavior: smooth;
+    scroll-snap-type: mandatory;
 `;
 
 const ResCon = styled.div`
@@ -105,6 +104,8 @@ const ResCon = styled.div`
   gap: 8px;
   justify-content: space-between;
   transition: transform .3s ease-in-out;
+  scroll-behavior: smooth;
+    scroll-snap-type: mandatory;
 `;
 
 const ScrollButtons = styled.div`
