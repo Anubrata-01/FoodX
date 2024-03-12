@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Logo, cart, loginIcon } from "../../constant";
-import { FaHome } from "react-icons/fa";
+import { FaHome,} from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
@@ -17,6 +17,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 const Navbar = () => {
   const [sign, setSign] = useState(true);
+  const [disply, setDisplay] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const quantity = useSelector((store) => store?.cart?.cartQuantity);
@@ -57,7 +59,9 @@ const Navbar = () => {
         console.error("Sign out error:", error);
       });
   };
-
+  const handleToggleDisplay = () => {
+    setDisplay(!disply);
+  };
   return (
     <Container>
       <NavBar>
@@ -91,24 +95,31 @@ const Navbar = () => {
                   <>
                     {loginIcon}
                     <DisplayName>
-                      <Name>
+                      <Name onClick={handleToggleDisplay}>
                         {userDetail.displayName && userDetail.displayName}
                       </Name>
+                      {disply ? (
+                        <>
+                          <DIV className="box">
+                            <Div>
+                              <StyledNavLink className="text-sm">
+                                Profile
+                              </StyledNavLink>
 
-                      <DIV className="box">
-                        <Div>
-                          <StyledNavLink className="text-sm">
-                            Profile
-                          </StyledNavLink>
-                          <StyledNavLink
-                            className="text-sm"
-                            onClick={handleSignOut}
-                          >
-                            Sign out
-                          </StyledNavLink>
-                          <H3 />
-                        </Div>
-                      </DIV>
+                              <StyledNavLink
+                                className="text-sm text-cyan-700"
+                                onClick={handleSignOut}
+                              >
+                                Sign out
+                              </StyledNavLink>
+
+                              <H3 />
+                            </Div>
+                          </DIV>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </DisplayName>
                   </>
                 </>
@@ -140,11 +151,13 @@ const NavBar = styled.nav`
   border: "1px solid black";
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const LogoContainer = styled.div`
   width: 10%;
   display: flex;
+  margin-bottom:5px;
   align-items: center;
   justify-content: space-between;
 `;
@@ -211,32 +224,40 @@ const DisplayName = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
-  &:hover > .box {
-    display: block;
-  }
+
   /* &:hover > &{} */
   /* margin-top: 5px; */
   /* line-height: 5px; */
 `;
 const Name = styled.p``;
+
 const DIV = styled.div`
-  display: none;
-`;
-const Div = styled.div`
-  width: 100%;
+  width: 130px;
   height: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: flex-start;
   z-index: 1;
-  top: 150%;
+  top: 180%;
+  left: -150%;
+  box-sizing: border-box;
+  /* right:1%; */
   border-radius: 2px;
-  padding: 26px 30px;
+  padding: 10px 24px;
   position: absolute;
   background-color: #fff;
   border-top: 2px solid #fc8019;
   box-shadow: 0 2px 20px 0 #93959f;
+`;
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  left: -20px;
+  color: green;
+  /* margin-right: -60px; */
+  /* margin-left:-35px; */
 `;
 const H3 = styled.h3`
   z-index: 2;
@@ -244,8 +265,8 @@ const H3 = styled.h3`
   position: relative;
   width: 11px;
   height: 11px;
-  bottom: 81px;
-  left: 48%;
+  bottom: 77px;
+  left: 78%;
   box-shadow: -3px -4px 9px -4px rgba(40, 44, 63, 0.5);
   background-color: #fff;
   border: 2px solid #fc8019;
@@ -254,28 +275,7 @@ const H3 = styled.h3`
   -ms-transform: translateX(-50%) rotate(45deg);
   transform: translateX(-50%) rotate(45deg);
 `;
-const TooltipText = styled.span`
-  visibility: hidden;
-  background-color: black;
-  color: white;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-`;
 
-const TooltipTrigger = styled.span`
-  position: relative;
-  cursor: pointer;
 
-  &:hover + ${TooltipText} {
-    visibility: visible;
-  }
-`;
 
 export default Navbar;
