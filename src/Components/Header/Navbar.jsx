@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Logo } from "../../constant";
+import { Logo, cart, loginIcon } from "../../constant";
 import { FaHome } from "react-icons/fa";
 import { BiSolidOffer } from "react-icons/bi";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../Utilities/Firebase";
@@ -15,12 +14,9 @@ import {
   setisLogged,
 } from "../../Redux Store/restaurantSlice";
 import { onAuthStateChanged } from "firebase/auth";
-// import Toast from "../../Utilities/Toast";
 import { useToast } from "@chakra-ui/react";
-
 const Navbar = () => {
   const [sign, setSign] = useState(true);
-  const [displayDiv, setDisplayDiv] = useState("hidden");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const quantity = useSelector((store) => store?.cart?.cartQuantity);
@@ -79,7 +75,8 @@ const Navbar = () => {
               <StyledNavLink to={""}>Offers</StyledNavLink>
             </NavLinks>
             <NavLinks>
-              <FaCartPlus />
+              <Cart>{cart}</Cart>
+
               <Span>{quantity && quantity}</Span>
               <StyledNavLink to={"/cart"}>Cart</StyledNavLink>
             </NavLinks>
@@ -91,37 +88,28 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  {/* <FaSignOutAlt />
-                  <DisplayName onMouseEnter={()=>setDisplayDiv(true)} >
-                    <Name> {userDetail.displayName && userDetail?.displayName}</Name>
-                    <Div>
-                    <StyledNavLink className=" text-sm -ml-3 -mt-3">Profile</StyledNavLink>
-                    <StyledNavLink className=" text-sm -ml-3 " onClick={handleSignOut}>
-                      Sign out
-                    </StyledNavLink>
-                    <H3></H3>
-                  </Div>
-                  </DisplayName> */}
                   <>
-                    <FaSignOutAlt /> {/* Render the SignOut icon */}
+                    {loginIcon}
                     <DisplayName>
-                     
-                        <Name>
-                          {userDetail.displayName && userDetail.displayName}
-                        </Name>
-                    <Div>
-                        <StyledNavLink className="text-sm">
-                          Profile
-                        </StyledNavLink>
-                        <StyledNavLink
-                          className="text-sm"
-                          onClick={handleSignOut}
-                        >
-                          Sign out
-                        </StyledNavLink>
-                        <H3 />
-                      </Div>
-                      </DisplayName>
+                      <Name>
+                        {userDetail.displayName && userDetail.displayName}
+                      </Name>
+
+                      <DIV className="box">
+                        <Div>
+                          <StyledNavLink className="text-sm">
+                            Profile
+                          </StyledNavLink>
+                          <StyledNavLink
+                            className="text-sm"
+                            onClick={handleSignOut}
+                          >
+                            Sign out
+                          </StyledNavLink>
+                          <H3 />
+                        </Div>
+                      </DIV>
+                    </DisplayName>
                   </>
                 </>
               )}
@@ -200,10 +188,14 @@ const NavLinks = styled.li`
     gap: 1px;
   }
 `;
+const Cart = styled.span`
+  /* background:green; */
+`;
 const Span = styled.span`
   position: absolute;
-  top: -7px;
-  left: 13px;
+  top: 3px;
+  left: 6px;
+  color: white;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -219,14 +211,18 @@ const DisplayName = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
-
+  &:hover > .box {
+    display: block;
+  }
+  /* &:hover > &{} */
   /* margin-top: 5px; */
   /* line-height: 5px; */
 `;
 const Name = styled.p``;
+const DIV = styled.div`
+  display: none;
+`;
 const Div = styled.div`
-  visibility:hidden;
-  /* display: none; */
   width: 100%;
   height: auto;
   display: flex;
@@ -241,10 +237,6 @@ const Div = styled.div`
   background-color: #fff;
   border-top: 2px solid #fc8019;
   box-shadow: 0 2px 20px 0 #93959f;
-  ${DisplayName}:hover & {
-    /* display: flex; */
-    visibility: visible;
-  }
 `;
 const H3 = styled.h3`
   z-index: 2;
