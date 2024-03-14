@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {} from 'react';
 import useFetchApi from '../../CustomHooks/useFetchApi';
 import { Swigy_url, foodApi } from '../../constant';
 import { useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import LineBar from '../../Utilities/LineBar';
 import { NavLink } from 'react-router-dom';
+import ShimmerEffect from '../../Utilities/ShimmerEffect';
 
 const shimmerAnimation = keyframes`
   0% {
@@ -30,11 +31,9 @@ const MoodSection = () => {
   const info = React.useMemo(() => filterData?.[0]?.card?.card?.gridElements?.infoWithStyle?.info || '', [filterData]);
 
 
-  if (!info) {
-    return null;
-  }
+  
 
-  return (
+  return info? (
     <Container>
       <Title>{headerTitle}</Title>
       <ItemCon>
@@ -55,7 +54,7 @@ const MoodSection = () => {
       </ItemCon>
       <LineBar />
     </Container>
-  );
+  ):(<h1>Data not found</h1>)
 }
 
 const Container = styled.div`

@@ -4,6 +4,7 @@ import styled, {  } from 'styled-components';
 import RestaurantCard from './RestaurantCard';
 import LineBar from '../../Utilities/LineBar';
 import ShimmerEffectForResWithFoodDelivery from '../../Utilities/ShimmerEffectForResWithFoodDelivery';
+import { NavLink } from 'react-router-dom';
 
 const ResstaurantWithFoodDelivery = () => {
     const ResFoodDelivery = useSelector(store => store?.restaurant?.restaurantAPi);
@@ -33,7 +34,11 @@ const ResstaurantWithFoodDelivery = () => {
             <SubContainer>
                 <CardContainer>
                     {restaurants.map((card, index) => (
-                        <RestaurantCard key={index} item={card} />
+                         <>
+                         <StyledNavLink to={"/restaurant/" + card?.info?.id}>
+                           <RestaurantCard key={index} item={card} index={index} />
+                         </StyledNavLink>
+                       </>
                     ))}
                 </CardContainer>
             </SubContainer>
@@ -49,7 +54,9 @@ const Container = styled.div`
     margin-left: 10%;
     margin-top: 2%;
 `;
-
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+`;
 const Title = styled.p`
     font-family: Basis_Grotesque_Pro;
     font-size: 20px;

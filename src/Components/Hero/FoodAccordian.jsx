@@ -3,7 +3,7 @@ import FoodItemCard from "./FoodItemCard";
 import styled from "styled-components";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
-const FoodAccordian = ({ foodItems, title }) => {
+const FoodAccordian = ({ foodItems, title, }) => {
   let length = foodItems && foodItems.length;
   const [show, setShow] = useState(false);
   const handleClick = () => {
@@ -21,6 +21,7 @@ const FoodAccordian = ({ foodItems, title }) => {
         ? foodItems &&
           foodItems.map((item, index) => (
             <div key={index}>
+                
               <FoodItemCard info={item?.card?.info} />
             </div>
           ))

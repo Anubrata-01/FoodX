@@ -6,7 +6,7 @@ import React from 'react';
 
 const useFetchMoodItemsDetails = (userId) => {
   const dispatch = useDispatch();
-  const Mood_Item_Url =React.useMemo(()=>`https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D22.469788246717883%26lng%3D88.3891574665904%26collection%3D${userId}%26tags%3Dlayout_CCS_Biryani%26sortBy%3D%26filters%3D%26type%3Drcv2%26offset%3D0%26page_type%3Dnull`,[userId]);
+  const Mood_Item_Url =React.useMemo(()=>`https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.469788246717883&lng=88.3891574665904&collection=${userId}&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null`,[userId]);
 
   useEffect(() => {
     const fetchMoodItemData = async () => {

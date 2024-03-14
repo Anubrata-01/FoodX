@@ -9,7 +9,7 @@ import { collection,addDoc } from "firebase/firestore";
 import { addUserId } from "../../Redux Store/restaurantSlice";
 import { addItemToCart, updateQuantity } from "../../Redux Store/cartSlice";
 
-const FoodItemCard = ({ info }) => {
+const FoodItemCard = ({ info, }) => {
   const [num, setNum] = useState(0);
   const dispatch = useDispatch();
   const { userId } = useParams();
