@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo,} from "react";
 import { useLocation, useParams } from "react-router-dom";
 import useFetchTopResCardDetails from "../../CustomHooks/useFetchTopResCardDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,17 +8,20 @@ import ShimmerEffectForResWithFoodDelivery from "../../Utilities/ShimmerEffectFo
 import LineBar from "../../Utilities/LineBar";
 import OffersSection from "./OffersSection";
 import FoodAccordian from "./FoodAccordian";
+import CartPopUp from "../../Utilities/CartPopUp";
 
 const TopRestaurantCardDetails = ({ sign, Navbar }) => {
   const { userId } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
+  const quantity=useSelector((store)=>store?.cart?.cartQuantity)
+
   useEffect(() => {
     dispatch(setCurrentRoute(location.pathname));
   }, [dispatch, location.pathname]);
   const url = useMemo(
     () =>
-      `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D22.4714457%26lng%3D88.3844319%26restaurantId%3D${userId}%26catalog_qa%3Dundefined%26submitAction%3DENTER`,
+      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.4714457&lng=88.3844319&restaurantId=${userId}&catalog_qa=undefined&submitAction=ENTER`,
     [userId]
   );
   useFetchTopResCardDetails(url);
@@ -96,10 +99,23 @@ const TopRestaurantCardDetails = ({ sign, Navbar }) => {
                 <FoodAccordian
                   foodItems={item?.card?.card?.itemCards}
                   title={item?.card?.card?.title}
+                 
                 />
               </div>
             ))}
         </div>
+        {
+          quantity>=1?(
+            <>
+
+<div className=" w-[60%] fixed top-96 mt-28 ">
+        <CartPopUp/>
+        </div>
+            </>
+          ):""
+        }
+        
+       
       </Div>
       {/* </> */}
     </Container>
