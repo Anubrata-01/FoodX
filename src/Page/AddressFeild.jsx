@@ -3,7 +3,7 @@ import { CheckoutTwo } from '../Utilities/Address'
 
 const AddressFeild = ({setShowAddress}) => {
   return (
-    <div className=' bg-slate-50 '>
+    <div className=' bg-slate-50 -mt-10 '>
         <div className='  pt-20'>
             <CheckoutTwo setShowAddress={setShowAddress}/>
         </div>
