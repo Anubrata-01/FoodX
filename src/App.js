@@ -1,10 +1,16 @@
 import React, { Suspense, } from "react";
 import Navbar from "./Components/Header/Navbar";
 import LogIn from "./Components/Hero/LogIn";
-import Home from "./Page/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Signin from "./Components/Hero/Signin";
-import { CartSection } from "./Page/CartSection";
+const LazyHome=React.lazy(()=>
+  import("./Page/Home")
+);
+const LazySignin=React.lazy(()=>
+  import("./Components/Hero/Signin")
+);
+const LazyCartSection=React.lazy(()=>
+  import("./Page/CartSection")
+);
 const LazyMoodContainer = React.lazy(() =>
   import("./Components/Hero/MoodContainer")
 );
@@ -16,7 +22,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <Suspense fallback={""}>
+          <LazyHome/>
+        </Suspense>
+      )
     },
     {
       path: "/home",
@@ -26,13 +36,18 @@ function App() {
       path: "/:userId",
       element: (
         <Suspense>
-          <LazyMoodContainer Navbar={Navbar} />
+          <LazyMoodContainer Navbar={Navbar}/>
         </Suspense>
       ),
     },
     {
       path: "/cart",
-      element: <CartSection Navbar={Navbar} />,
+      element:(
+        <Suspense>
+          <LazyCartSection Navbar={Navbar}/>
+        </Suspense>
+        // <CartSection Navbar={Navbar}/>
+      ) 
     },
     {
       path: "/login",
@@ -40,12 +55,16 @@ function App() {
     },
     {
       path: "/signin",
-      element: <Signin />,
+      element: (
+        <Suspense fallback={"Loading.."}>
+          <LazySignin/>
+        </Suspense>
+      )
     },
     {
       path: "/restaurant/:userId",
       element: (
-        <Suspense fallback={""}>
+        <Suspense fallback={"Loading.."}>
           <LazyTopResCardDetails Navbar={Navbar}/>
         </Suspense>
       ),

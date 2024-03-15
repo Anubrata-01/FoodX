@@ -41,7 +41,7 @@ const MoodItemContainer = ({ user }) => {
       <Description>{description}</Description>
       <FilterArea>
         {filterObj?.map((item, index) => (
-          <ObjItem key={index} onClick={()=>item?.function(filterData,setFilterData,setSign,sign)}>{item.name} <Span>{item?.icon}</Span></ObjItem>
+          <ObjItem key={index} onClick={()=>item?.function(cards,setFilterData,setSign,sign)}>{item.name} <Span>{item?.icon}</Span></ObjItem>
         ))}
       </FilterArea>
       <Title1>Restaurants to explore</Title1>

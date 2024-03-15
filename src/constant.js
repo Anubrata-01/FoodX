@@ -46,7 +46,7 @@ export const filterObj = [
   {
     name: "Filter",
     icon: <TuneIcon/>,
-    function:(cards,setFilterData)=>{
+    function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating >=4.3);
       setFilterData(filteredCards)
@@ -55,7 +55,7 @@ export const filterObj = [
   {
     name: "Sort by",
     icon: <KeyboardArrowUpIcon/>,
-    function:(cards,setFilterData,setSign)=>{
+    function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating >=4.3);
       setFilterData(filteredCards)
@@ -90,7 +90,7 @@ export const filterObj = [
     icon: <CloseIcon/>,
     function:(cards,setFilterData,setSign,sign)=>{
 
-      const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating >=4.3);
+      const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating <=4.3);
       setFilterData(filteredCards)
       setSign(!sign)
 

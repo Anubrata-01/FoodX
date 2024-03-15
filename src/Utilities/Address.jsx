@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { updateAddressDetails } from '../Redux Store/addressStore';
 // import { X } from 'lucide-react'
-
-
-
 export function CheckoutTwo({setShowAddress}) {
+
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    postalCode: '',
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name,value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  const isFormDataEmpty = Object.values(formData).some(value => value === '');
+
+  if (!isFormDataEmpty) {
+    dispatch(updateAddressDetails(formData));
+    console.log(formData);
+  } else {
+    console.log('Form data fields are empty. Not dispatching action.');
+  }
+
+  };
   return (
     <div className="mx-auto my-4 max-w-2xl md:my-6 bg-slate-200">
       <div className="overflow-hidden  rounded-xl shadow">
@@ -34,7 +63,10 @@ export function CheckoutTwo({setShowAddress}) {
                             className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                             type="text"
                             placeholder="Enter your name"
+                            
                             id="name"
+                            name='name'
+                            onChange={handleChange}
                           ></input>
                         </div>
                       </div>
@@ -57,7 +89,8 @@ export function CheckoutTwo({setShowAddress}) {
                                 name="address"
                                 autoComplete="street-address"
                                 className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                              />
+                                onChange={handleChange}
+                             />
                             </div>
                           </div>
 
@@ -75,6 +108,7 @@ export function CheckoutTwo({setShowAddress}) {
                                 name="city"
                                 autoComplete="address-level2"
                                 className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -90,9 +124,10 @@ export function CheckoutTwo({setShowAddress}) {
                               <input
                                 type="text"
                                 id="region"
-                                name="region"
+                                name="state"
                                 autoComplete="address-level1"
                                 className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -108,9 +143,10 @@ export function CheckoutTwo({setShowAddress}) {
                               <input
                                 type="text"
                                 id="postal-code"
-                                name="postal-code"
+                                name="postalCode"
                                 autoComplete="postal-code"
                                 className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -132,6 +168,7 @@ export function CheckoutTwo({setShowAddress}) {
                         <button
                           type="button"
                           className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                          onClick={handleSubmit}
                         >
                           Make payment
                         </button>
