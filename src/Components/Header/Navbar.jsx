@@ -101,7 +101,7 @@ const Navbar = () => {
                       <>
                         <DIV className="box absolute left-12">
                           <Div>
-                            <StyledNavLink className="text-sm">
+                            <StyledNavLink className="text-sm" to={"/my-account"}>
                               Profile
                             </StyledNavLink>
 
@@ -234,9 +234,9 @@ const DisplayName = styled.div`
 `;
 const Name = styled.p`
   box-sizing: border-box;
-  width: 150px;
+  width: 170px;
   display: flex;
-  gap: 5px;
+  gap: 8px;
   align-items: center;
   // justify-content: space-between;
   padding-left: -15px;

@@ -17,6 +17,7 @@ const LazyMoodContainer = React.lazy(() =>
 const LazyTopResCardDetails = React.lazy(() =>
   import("./Components/Hero/TopRestaurantCardDetails")
 );
+const MyAccountComponent=React.lazy(()=>import("./Page/MyProfile"))
 
 function App() { 
   const router = createBrowserRouter([
@@ -69,6 +70,12 @@ function App() {
         </Suspense>
       ),
     },
+    {
+      path:"/my-account",
+      element:<Suspense fallback={<h1>Please wait</h1>}>
+        <MyAccountComponent Navbar={Navbar}/>
+      </Suspense>
+    }
   ]);
   return <RouterProvider router={router} />;
 }

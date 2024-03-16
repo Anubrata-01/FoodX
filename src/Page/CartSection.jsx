@@ -53,10 +53,6 @@ const CartSection = ({ Navbar }) => {
     }
   }, []);
 
-  // if (!FoodItems) {
-  //   return null;
-  // }
-
   return (
     <div>
       <Navbar />
