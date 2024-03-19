@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
 import { CDN_url } from "../../constant";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { db } from "../../Utilities/Firebase";
-import { collection,addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { addUserId } from "../../Redux Store/restaurantSlice";
 import { addItemToCart, updateQuantity } from "../../Redux Store/cartSlice";
 
-const FoodItemCard = ({ info, }) => {
+const FoodItemCard = ({ info }) => {
   const [num, setNum] = useState(0);
   const dispatch = useDispatch();
   const { userId } = useParams();
@@ -19,14 +19,16 @@ const FoodItemCard = ({ info, }) => {
     if (num >= 0) {
       setNum((prevNum) => prevNum + 1);
       dispatch(addItemToCart(info));
-      const dataRef=addDoc(collection(db,"userId"),{
-        id:userId
-      })
-      console.log(dataRef)
+      const dataRef = addDoc(collection(db, "userId"), {
+        id: userId,
+      });
+      console.log(dataRef);
     } else {
       dispatch(addUserId(userId));
     }
-  }, [num]);
+  }, 
+  [num]
+  );
 
   const handleMinus = useCallback(
     (itemId, quantity) => {
@@ -35,7 +37,7 @@ const FoodItemCard = ({ info, }) => {
         dispatch(updateQuantity({ itemId, quantity }));
       }
     },
-    [num]
+    [num,dispatch]
   );
 
   const handlePlus = useCallback(
@@ -45,7 +47,7 @@ const FoodItemCard = ({ info, }) => {
         dispatch(updateQuantity({ itemId, quantity }));
       }
     },
-    [num]
+    [num,dispatch]
   );
   return (
     <div>
@@ -71,7 +73,13 @@ const FoodItemCard = ({ info, }) => {
               <Add onClick={addtoCart}>Add</Add>
             ) : (
               <Con>
-                <MinusSpan onClick={() => handleMinus(id, num - 1)}>
+                <MinusSpan
+                  onClick={
+                    () => handleMinus(id, num - 1)
+
+                    // handleMinus(id, num - 1)
+                  }
+                >
                   -
                 </MinusSpan>
                 <Quantity>{num}</Quantity>

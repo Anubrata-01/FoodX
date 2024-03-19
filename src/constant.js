@@ -1,6 +1,10 @@
 import TuneIcon from '@mui/icons-material/Tune';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CloseIcon from '@mui/icons-material/Close';
+import Orders from './Components/Myprofile/Orders';
+import Favourites from './Components/Myprofile/Favourites';
+import AddresFeild from './Components/Myprofile/AddresFeild';
+import Payments from './Components/Myprofile/Payments';
 // import { useState } from 'react';
 // const [sign,setSign]=useState(false)
 export const Logo = (
@@ -98,6 +102,34 @@ export const filterObj = [
 
   },
 ];
+export const ListItems=[
+  {
+    name:"Orders",
+    comp:<Orders/>,
+    path:"/my-account/manage-orders"
+  },
+  
+  {
+    name:"Favourties",
+    comp:<Favourites/>,
+    path:"/my-account/favourites"
+  },
+  {
+    name:"Address",
+    comp:<AddresFeild/>,
+    path:"/my-account/manage-address"
+  },
+  {
+    name:"Payments",
+    comp:<Payments/>,
+    path:"/my-account/manage-payment"
+  },
+  {
+    name:"Settings",
+    comp:<Orders/>,
+    path:"/my-account/my-settings"
+  }
+]
 export const icon = (
   <svg
     width="20"
