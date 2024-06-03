@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Logo, cart, loginIcon } from "../../constant";
 import { FaHome } from "react-icons/fa";
-import { BiSolidOffer } from "react-icons/bi";
+// import { BiSolidOffer } from "react-icons/bi";
 import { FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,7 +75,7 @@ const Navbar = () => {
               <StyledNavLink to={"/"}>Home</StyledNavLink>
             </NavLinks>
             <NavLinks>
-              <BiSolidOffer />
+              {/* <BiSolidOffer /> */}
               <StyledNavLink to={""}>Offers</StyledNavLink>
             </NavLinks>
             <NavLinks>
@@ -140,16 +140,28 @@ const Container = styled.div`
   top: 0;
   background-color: #fff;
   box-shadow: 0 15px 40px -20px rgba(40, 44, 63, 0.15);
+  /* @media (max-width:768px){
+    width:900px;
+    background-color:cyan;
+  } */
 `;
 
 const NavBar = styled.nav`
   width: 80%;
-  margin-left: 7%;
+  /* border: 1px solid red; */
+  margin-left: 9%;
   margin-top: 1%;
-  border: "1px solid black";
+  /* border: "1px solid black"; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* @media (min-width:640px) and (max-width:768px){
+    width:75%;
+    display: flex;
+    gap:10px;
+    position: relative;
+   
+  } */
 `;
 
 const LogoContainer = styled.div`
@@ -167,11 +179,19 @@ const LogoName = styled.span`
 
 const Licon = styled.div`
   width: 50%;
-  /* margin-left:5rem; */
-
-  @media screen and (max-width: 640px) {
-    width: auto;
-  }
+  /* border: 1px solid black; */
+  margin-left:5rem;
+  /* @media (min-width:640px) and (max-width: 768px) {
+    width: 70%;
+  } */
+  /* @media screen and (max-width: 640px) {
+    width: 200px;
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    background-color: #fff;
+  box-shadow: 0 15px 40px -20px rgba(40, 44, 63, 0.15);
+  } */
 `;
 
 const List = styled.ul`
@@ -180,10 +200,15 @@ const List = styled.ul`
   display: flex;
   /* justify-content: space-between; */
   gap: 30px;
-  @media screen and (max-width: 640px) {
-    width: auto;
-    background-color: cyan;
+  /* @media (min-width:640px) and (max-width: 768px) {
+    gap:10px;
   }
+  @media screen and (max-width: 640px) {
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+    justify-content: center;
+  } */
 `;
 
 const NavLinks = styled.li`
@@ -198,9 +223,6 @@ const NavLinks = styled.li`
   cursor: pointer;
   :hover {
     color: #ffa700;
-  }
-  @media screen and (max-width: 640px) {
-    gap: 1px;
   }
 `;
 const Cart = styled.span`
@@ -240,6 +262,9 @@ const Name = styled.p`
   align-items: center;
   // justify-content: space-between;
   padding-left: -15px;
+  @media screen and (max-width: 640px) {
+   padding-left:0
+  }
   // border:1px solid black;
 `;
 

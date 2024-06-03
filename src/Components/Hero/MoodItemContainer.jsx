@@ -119,11 +119,11 @@ const ObjItem = styled.p`
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(226, 226, 231);
   width: auto;
-  /* padding: 2px 2px; */
-  padding-left: 4px;
+  padding: 6px 3px;
+  /* padding-left: 6px;
   padding-top: 2px;
   padding-bottom: 3px;
-  padding-right: 1px;
+  padding-right: 1px; */
   display: flex;
   /* gap:6px; */
   justify-content: space-between;

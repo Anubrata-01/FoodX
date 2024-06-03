@@ -1,5 +1,5 @@
 import React from "react";
-import { CDN_url, icon} from "../../constant";
+import { CDN_url, Swigy_url, icon} from "../../constant";
 import styled from "styled-components";
 
 const RestaurantCard = ({ item }) => {
@@ -9,7 +9,7 @@ const RestaurantCard = ({ item }) => {
   return (
     <Container>
       <ImgBox>
-        <Img src={`${CDN_url}${cloudinaryImageId}`} alt="" />
+        <Img src={`${Swigy_url}${cloudinaryImageId}`} alt="" />
       </ImgBox>
 
       <div>

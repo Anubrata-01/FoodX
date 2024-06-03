@@ -21,15 +21,18 @@ const TopRestaurantCardDetails = ({ sign, Navbar }) => {
   }, [dispatch, location.pathname]);
   const url = useMemo(
     () =>
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.4714457&lng=88.3844319&restaurantId=${userId}&catalog_qa=undefined&submitAction=ENTER`,
+//  `https://cors-handler.onrender.com/api/?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D22.4714457%26lng%3D88.3844319%26restaurantId%3D%24%7B${userId}%7D%26catalog_qa%3Dundefined%26submitAction%3DENTER%2C`,
+     
+    `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.4714457&lng=88.3844319&restaurantId=${userId}&catalog_qa=undefined&submitAction=ENTER`,
     [userId]
   );
+//  `https://cors-handler.onrender.com/api/?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D22.4714457%26lng%3D88.3844319%26restaurantId%3D%24%7B${userId}%7D%26catalog_qa%3Dundefined%26submitAction%3DENTER%2C`
   useFetchTopResCardDetails(url);
   const cardDetails = useSelector((store) => store?.restaurant?.resCardDetails);
   cardDetails && console.log(cardDetails);
   const FoodAccrodians = useMemo(
     () =>
-      cardDetails?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      cardDetails?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
         (card) =>
           card?.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

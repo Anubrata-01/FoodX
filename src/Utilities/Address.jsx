@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { updateAddressDetails } from '../Redux Store/addressStore';
+import axios from 'axios';
 // import { X } from 'lucide-react'
-export function CheckoutTwo({setShowAddress}) {
+export function CheckoutTwo({setShowAddress,total}) {
 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -21,18 +22,71 @@ export function CheckoutTwo({setShowAddress}) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  const isFormDataEmpty = Object.values(formData).some(value => value === '');
+//   const handleSubmit = (e,) => {
+//     e.preventDefault();
+//   const isFormDataEmpty = Object.values(formData).some(value => value === '');
 
-  if (!isFormDataEmpty) {
-    dispatch(updateAddressDetails(formData));
-    console.log(formData);
-  } else {
-    console.log('Form data fields are empty. Not dispatching action.');
+//   if (!isFormDataEmpty) {
+//     dispatch(updateAddressDetails(formData));
+//     console.log(formData);
+//   } else {
+//     console.log('Form data fields are empty. Not dispatching action.');
+//   }
+// }
+
+const checkoutHandler = async (amount) => {
+  try {
+    // Fetch key
+    const { data: { key } } = await axios.get("http://localhost:4000/api/getkey");
+
+    // Perform checkout
+    const { data: { order } } = await axios.post("http://localhost:4000/api/checkout", { amount });
+
+    // Configure options for Razorpay
+    const options = {
+      key,
+      amount: order.amount,
+      currency: "INR",
+      name: "Anubrata Chanda",
+      description: "Tutorial of RazorPay",
+      image: "https://avatars.githubusercontent.com/u/143244849?v=4",
+      order_id: order.id,
+      callback_url: "http://localhost:4000/api/paymentverification",
+      prefill: {
+        name: "Anubrata Chanda",
+        email: "anubrata@example.com",
+        contact: "9999999999"
+      },
+      notes: {
+        "address": "Razorpay Corporate Office"
+      },
+      theme: {
+        "color": "#121212"
+      }
+    };
+
+    // Create and open Razorpay
+    const razor = new window.Razorpay(options);
+    razor.open();
+  } catch (error) {
+    console.error("Error during checkout:", error);
+    // Handle error appropriately
   }
+};
 
-  };
+const handleSubmit = (e,) => {
+  e.preventDefault();
+const isFormDataEmpty = Object.values(formData).some(value => value === '');
+
+if (!isFormDataEmpty) {
+  dispatch(updateAddressDetails(formData));
+  console.log(formData);
+  checkoutHandler(total)
+} else {
+  console.log('Form data fields are empty. Not dispatching action.');
+}
+}
+
   return (
     <div className="mx-auto my-4 max-w-2xl md:my-6 bg-slate-200">
       <div className="overflow-hidden  rounded-xl shadow">

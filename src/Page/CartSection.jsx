@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Utilities/Firebase";
 import { Trash } from "lucide-react";
-import { CDN_url } from "../constant";
+import { CDN_url, Swigy_url } from "../constant";
 // import { ShimmerEffectForResWithFoodDelivery } from "../Utilities/ShimmerEffectForResWithFoodDelivery"; // Assuming ShimmerEffectForResWithFoodDelivery is exported from Utilities
 import {
   removeUserDetails,
@@ -77,7 +77,7 @@ const CartSection = ({ Navbar }) => {
                       <li key={product.id} className="flex py-6 sm:py-6">
                         <div className="flex-shrink-0">
                           <img
-                            src={CDN_url + product.imageId}
+                            src={Swigy_url + product.imageId}
                             alt={product.name}
                             className="sm:h-30 sm:w-28 h-24 w-24 rounded-md object-cover"
                           />
@@ -217,7 +217,7 @@ const CartSection = ({ Navbar }) => {
           </div>
         </>
       ) : (
-        <AddressFeild setShowAddress={setShowAddress} />
+        <AddressFeild setShowAddress={setShowAddress} total={total} />
       )}
       
     </div>

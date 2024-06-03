@@ -5,6 +5,8 @@ import Orders from './Components/Myprofile/Orders';
 import Favourites from './Components/Myprofile/Favourites';
 import AddresFeild from './Components/Myprofile/AddresFeild';
 import Payments from './Components/Myprofile/Payments';
+import { ChevronUp, SlidersHorizontal, X } from 'lucide-react';
+import { px } from 'framer-motion';
 // import { useState } from 'react';
 // const [sign,setSign]=useState(false)
 export const Logo = (
@@ -37,9 +39,10 @@ export const Logo = (
   </svg>
 );
 
-
-export const foodApi="https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+// const api="https://51.159.111.35/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING&__cpo=aHR0cHM6Ly93d3cuc3dpZ2d5LmNvbQ"
+export const foodApi='https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.4714457&lng=88.3844319&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING';
 // export const foodApi = "https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D22.4714457%26lng%3D88.3844319%26is-seo-homepage-enabled%3Dtrue%26page_type%3DDESKTOP_WEB_LISTING"
+// export const foodApi="https://cors-handler.onrender.com/api/?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D22.4714457%26lng%3D88.3844319%26is-seo-homepage-enabled%3Dtrue%26page_type%3DDESKTOP_WEB_LISTING"
 export const color = "#ffa700";
 export const CDN_url =
   "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_558,h_320,c_fill/";
@@ -49,7 +52,7 @@ export const Swigy_url =
 export const filterObj = [
   {
     name: "Filter",
-    icon: <TuneIcon/>,
+    icon: <SlidersHorizontal size={16} />,
     function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating >=4.3);
@@ -58,7 +61,7 @@ export const filterObj = [
   },
   {
     name: "Sort by",
-    icon: <KeyboardArrowUpIcon/>,
+    icon: <ChevronUp size={16}/>,
     function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating >=4.3);
@@ -69,7 +72,7 @@ export const filterObj = [
   },
   {
     name: "Pure Veg",
-    icon: <CloseIcon/>,
+    icon: <X size={16}/>,
     function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.veg === true);
@@ -80,7 +83,7 @@ export const filterObj = [
   },
   {
     name: "Rs.300-Rs.600",
-    icon: <CloseIcon/>,
+    icon: <X size={16}/>,
     function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.veg===true);
@@ -91,7 +94,7 @@ export const filterObj = [
   },
   {
     name: "Less than Rs.300",
-    icon: <CloseIcon/>,
+    icon: <X size={16}/>,
     function:(cards,setFilterData,setSign,sign)=>{
 
       const filteredCards=cards.filter((item)=>item?.card?.card?.info?.avgRating <=4.3);

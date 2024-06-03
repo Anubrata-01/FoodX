@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import LineBar from "../../Utilities/LineBar";
-import { CDN_url } from "../../constant";
+import { CDN_url,Swigy_url } from "../../constant";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { db } from "../../Utilities/Firebase";
@@ -63,7 +63,7 @@ const FoodItemCard = ({ info }) => {
         </DetialsCon>
         <ImgCon>
           {imageId ? (
-            <Img src={CDN_url + imageId} alt="" />
+            <Img src={Swigy_url + imageId} alt="" />
           ) : (
             <Img src="" alt="" />
           )}
